@@ -34,7 +34,7 @@ This project will use the following technologies:
 - [ ] Write proposal
 - [ ] Set up repo
 
-### Day 1:
+### Day 1: Setup
 - [ ] Set up files.
 - [ ] Spend time learning html canvas and dom manipulation.
 - [ ] Learn quaternion rotation.
@@ -46,10 +46,10 @@ This project will use the following technologies:
 
 
 
-### Day 3:
+### Day 3: Design
 - [ ] Build out the cube and its sub components.
 
-### Day 4:
+### Day 4: Styling
 - [ ] Style app and polish.
 
 
