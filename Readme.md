@@ -20,7 +20,7 @@ and controls for manipulating the cube. Controls will
 include buttons for randomizing the cube and buttons
 for solving the cube.
 
----Wireframe here
+![](https://github.com/ntuzer/3D-Cube/blob/master/Wireframe/Wireframe.001.jpeg?raw=true)
 
 # Architecture / Technologies
 This project will use the following technologies:
