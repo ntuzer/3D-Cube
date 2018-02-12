@@ -20,14 +20,7 @@ and controls for manipulating the cube. Controls will
 include buttons for randomizing the cube and buttons
 for solving the cube.
 
-----picture----
-|              |
-|      __      |
-|     |  |     |
-|     |__|     |
-|              |
-|              |
-----picture----
+---Wireframe here
 
 # Architecture / Technologies
 This project will use the following technologies:
@@ -38,26 +31,26 @@ This project will use the following technologies:
 # Implementation Timeline
 
 ###  Over the weekend:
-[] Write proposal
-[] Set up repo
+- [ ] Write proposal
+- [ ] Set up repo
 
 ### Day 1:
-[] Set up files.
-[] Spend time learning html canvas and dom manipulation.
-[] Learn quaternion rotation.
+- [ ] Set up files.
+- [ ] Spend time learning html canvas and dom manipulation.
+- [ ] Learn quaternion rotation.
 
 ### Day 2: Game logic
-[] Come up with game logic to track the cubes movements
-[] and change its state with user input.
-[] Write logic to track cube's front facing side.
+- [ ] Come up with game logic to track the cubes movements
+- [ ] and change its state with user input.
+- [ ] Write logic to track cube's front facing side.
 
 
 
 ### Day 3:
-[] Build out the cube and its sub components.
+- [ ] Build out the cube and its sub components.
 
 ### Day 4:
-[] Style app and polish.
+- [ ] Style app and polish.
 
 
 ### Bonus features
