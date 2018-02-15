@@ -1,23 +1,21 @@
-window.log = function()
-{
-	if (this.console)
-	{
+window.log = function() {
+	if (this.console) {
 		console.log(Array.prototype.slice.call(arguments));
 	}
 };
 
 // Namespace
-var Defmech = Defmech ||
-{};
+var Defmech = Defmech || {};
 
-Defmech.RotationWithQuaternion = (function()
-{
+Defmech.RotationWithQuaternion = (function() {
 	'use_strict';
 
+//*******************
+	var cubeState;  //*
+//*******************
+
 	var container;
-
 	var camera, scene, renderer;
-
 	var cube0, cube1, cube2,
 			cube3, cube4, cube5,
 			cube6, cube7, cube8,
@@ -27,36 +25,25 @@ Defmech.RotationWithQuaternion = (function()
 			cube18, cube19, cube20,
 			cube21, cube22, cube23,
 			cube24, cube25, cube26;
-
 	var mouseDown = false;
-	var projector;
 	var mouse = new THREE.Vector2();
 	var rotateStartPoint = new THREE.Vector3(0, 0, 1);
 	var rotateEndPoint = new THREE.Vector3(0, 0, 1);
-
 	var curQuaternion, cur1Quaternion;
-	var rotWorldMatrix;
-
-	var targetList;
-
 	var ray = new THREE.Raycaster();
-
 	var windowHalfX = window.innerWidth / 2;
 	var windowHalfY = window.innerHeight / 2;
 	var rotationSpeed = 2;
 	var lastMoveTimestamp = new Date();
 	var moveReleaseTimeDelta = 50;
-
 	var startPoint = {
 		x: 0,
 		y: 0
 	};
-
 	var deltaX = 0,
-		deltaY = 0;
+			deltaY = 0;
 
-	var setup = function()
-	{
+	var setup = function() {
 		container = document.createElement('div');
 		container.style.display = 'flex';
 		container.style.alignItems = 'center';
@@ -71,24 +58,6 @@ Defmech.RotationWithQuaternion = (function()
 		info.style.textAlign = 'center';
 		info.innerHTML = '3D - cube0';
 		container.appendChild(info);
-
-		// var button = document.createElement('div');
-		// button.innerHTML = 'Rotate X'
-		// button.style.border = '1px solid black'
-		// button.style.padding = '10px';
-		// button.style.width = '70px';
-		// button.style.height = '20px';
-		// button.style.borderRadius = '6px';
-		// button.style.cursor = 'pointer';
-		// button.style.className = "button";
-		// button.style.background = 'lightgrey';
-
-
-		// container.appendChild(button);
-
-		// var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
-		// var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
-		// camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 
 		camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 		camera.position.y = 150;
@@ -147,7 +116,7 @@ Defmech.RotationWithQuaternion = (function()
 			var boxGeometryB5F = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
 			var boxGeometryG6Bk = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
 
-		for(var i = 0; i < 108; i++){
+ 		for(var i = 0; i < 108; i++) {
 			boxGeometryW1R.faces[i].materialIndex = 0;
 			boxGeometryY2L.faces[i].materialIndex = 0;
 			boxGeometryR3T.faces[i].materialIndex = 0;
@@ -155,8 +124,7 @@ Defmech.RotationWithQuaternion = (function()
 			boxGeometryB5F.faces[i].materialIndex = 0;
 			boxGeometryG6Bk.faces[i].materialIndex = 0;
 		}
-		for (var i = 0; i < 108; i += 1)
-		{
+		for (var i = 0; i < 108; i += 1) {
 			var color;
 			if(i < 18){
 				boxGeometryW1R.faces[i].materialIndex = 1;
@@ -321,23 +289,9 @@ Defmech.RotationWithQuaternion = (function()
 			// scene.add(cube25)
 			// scene.add(cube26)
 
-		targetList = [cube0, cube1
-										];
-
 	// CUBES!---------------------------------------------------------------
 
-	// Plane (shadow)
-				// var planeGeometry = new THREE.PlaneGeometry(200, 200);
-				// planeGeometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
-		    //
-				// var planeMaterial = new THREE.MeshBasicMaterial(
-				// {
-				// 	color: 0xe0e0e0,
-				// 	overdraw: 0.5
-				// });
-		    //
-				// plane = new THREE.Mesh(planeGeometry, planeMaterial);
-				// scene.add(plane);
+
 
 		renderer = new THREE.CanvasRenderer();
 		renderer.setClearColor(0xfffff); //BACKGROUND COLOR
@@ -352,10 +306,9 @@ Defmech.RotationWithQuaternion = (function()
 		window.addEventListener('resize', onWindowResize, false);
 
 		animate();
-	}; //end init/setup
+	}; //end initialize / setup
 
-function onWindowResize()
-{
+function onWindowResize() {
 	windowHalfX = window.innerWidth / 2;
 	windowHalfY = window.innerHeight / 2;
 
@@ -365,8 +318,7 @@ function onWindowResize()
 	renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function onDocumentMouseDown(event)
-{
+function onDocumentMouseDown(event) {
 	event.preventDefault();
 
 	document.addEventListener('mousemove', onDocumentMouseMove, false);
@@ -382,8 +334,7 @@ function onDocumentMouseDown(event)
 	rotateStartPoint = rotateEndPoint = projectOnTrackball(0, 0);
 }
 
-function onDocumentMouseMove(event)
-{
+function onDocumentMouseMove(event) {
 	deltaX = (event.x - startPoint.x) / 2;
 	deltaY = (event.y - startPoint.y) / 2;
 
@@ -395,8 +346,7 @@ function onDocumentMouseMove(event)
 	lastMoveTimestamp = new Date();
 }
 
-function onDocumentMouseUp(event)
-{
+function onDocumentMouseUp(event) {
 	if (new Date().getTime() - lastMoveTimestamp.getTime() > moveReleaseTimeDelta)
 	{
 		deltaX = event.x - startPoint.x;
@@ -412,44 +362,23 @@ function onDocumentMouseUp(event)
 }
 
 function getFace(event){
-		console.log("Click.");
+		mouse.x = ((event.clientX - renderer.domElement.offsetLeft) / renderer.domElement.clientWidth) * 2 - 1;
+		mouse.y = - ((event.clientY - renderer.domElement.offsetTop) / renderer.domElement.clientHeight) * 2 + 1;
 
-		// update the mouse variable
-		// mouse.x = ( event.clientX / (window.innerWidth) ) * 2 - 1;
-		// mouse.y = - ( event.clientY / (window.innerHeight) ) * 2 + 1;
-		mouse.x = ( ( event.clientX - renderer.domElement.offsetLeft ) / renderer.domElement.clientWidth ) * 2 - 1;
-		mouse.y = - ( ( event.clientY - renderer.domElement.offsetTop ) / renderer.domElement.clientHeight ) * 2 + 1;
-		console.log('mx',mouse.x);
-		console.log('my',mouse.y);
-		// find intersections
-
-		// create a Ray with origin at the mouse position
-		//   and direction into the scene (camera direction)
 		var vector = new THREE.Vector3( mouse.x, mouse.y, 0 );
 		vector.unproject(camera);
-
-
-		console.log('mouse', mouse);
-		console.log('cam', camera);
-		// var ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
 		ray.setFromCamera( mouse, camera);
-
-
-
-		console.log('chillen', scene.children);
 		var intersects = ray.intersectObjects( scene.children );
-		console.log('hello', intersects);
 
-		if ( intersects.length > 0 )
-		{
-			console.log("Hit @ " + intersects[0].faceIndex );
-			intersects[ 0 ].face.color.setRGB( 0.8 * Math.random() + 0.2, 0, 0 );
-			intersects[ 0 ].object.geometry.colorsNeedUpdate = true;
+		if ( intersects.length > 0 ) {
+			var selectedCube;
+			intersects.forEach(hit => {
+				if (hit.face.materialIndex > 0) selectedCube = hit.object;
+			});
 		}
 }
 
-function projectOnTrackball(touchX, touchY)
-{
+function projectOnTrackball(touchX, touchY) {
 	var mouseOnBall = new THREE.Vector3();
 
 	mouseOnBall.set(
@@ -471,8 +400,7 @@ function projectOnTrackball(touchX, touchY)
 	return mouseOnBall;
 }
 
-function rotateMatrix(rotateStart, rotateEnd)
-{
+function rotateMatrix(rotateStart, rotateEnd) {
 	axis = new THREE.Vector3()
 	quaternion = new THREE.Quaternion();
 
@@ -488,19 +416,16 @@ function rotateMatrix(rotateStart, rotateEnd)
 	return quaternion;
 }
 
-function clamp(value, min, max)
-{
+function clamp(value, min, max) {
 	return Math.min(Math.max(value, min), max);
 }
 
-function animate()
-{
+function animate() {
 	requestAnimationFrame(animate);
 	render();
 }
 
-function render()
-{
+function render() {
 	if (!mouseDown)
 	{
 		var drag = 0.95;
@@ -530,8 +455,7 @@ function render()
 	renderer.render(scene, camera);
 }
 
-var handleRotation = function()
-{
+var handleRotation = function() {
 	// console.log("quat",cube0.quaternion);
 	// console.log("norm",cube0.geometry.faces[0].normal);
 	rotateEndPoint = projectOnTrackball(deltaX, deltaY);
@@ -567,8 +491,7 @@ var handleRotation = function()
 	rotateEndPoint = rotateStartPoint;
 };
 
-var xRotation = function()
-{
+var xRotation = function() {
 	rotateEndPoint = projectOnTrackball(deltaX, deltaY);
 	var rotateQuaternion = rotateMatrix(rotateStartPoint, rotateEndPoint);
 	curQuaternion = cube0.quaternion;
@@ -605,8 +528,7 @@ return {
 };
 })();
 
-document.onreadystatechange = function()
-{
+document.onreadystatechange = function() {
 	if (document.readyState === 'complete')
 	{
 		Defmech.RotationWithQuaternion.init();
