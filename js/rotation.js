@@ -1,14 +1,18 @@
+/*
+Code for cube rotation was based on and heavily altered from defmech's work
+on object rotation with quaternion angles.
+https://github.com/defmech/Three.js-Object-Rotation-with-Quaternion
 
-// window.log = function() {
-// 	if (this.console) {
-// 		console.log(Array.prototype.slice.call(arguments));
-// 	}
-// };
+Also referenced but did not use stemkoski's tutorial on three.js 'Mouse Click'
+https://github.com/stemkoski/three.js
+http://stemkoski.github.io/Three.js/Mouse-Click.html
+*/
+
 
 // Namespace
-var Defmech = Defmech || {};
+var RubiksCube = RubiksCube || {};
 
-Defmech.RotationWithQuaternion = (function() {
+RubiksCube.RotationWithQuaternion = (function() {
 	'use_strict';
 
 //*******************
@@ -175,7 +179,7 @@ Defmech.RotationWithQuaternion = (function() {
 
 		scene = new THREE.Scene();
 		// Cube size
-		var size = 100;
+		var size = 200;
 
 		//cube materials
 		var transparent = new THREE.MeshLambertMaterial({
@@ -589,10 +593,6 @@ function determineRotationType(cube, face){
 function closestPlane(cube, face){
 	var cubeNum = cubeSTATE[cube];
 
-
-
-
-// 	return aCube;
 }
 
 function getWorldPosition(cubo, faces){
@@ -835,6 +835,6 @@ return {
 document.onreadystatechange = function() {
 	if (document.readyState === 'complete')
 	{
-		Defmech.RotationWithQuaternion.init();
+		RubiksCube.RotationWithQuaternion.init();
 	}
 };
