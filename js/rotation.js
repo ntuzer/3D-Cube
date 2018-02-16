@@ -59,17 +59,27 @@ Defmech.RotationWithQuaternion = (function() {
 		info.innerHTML = '3D - cube0';
 		container.appendChild(info);
 
+		var button = document.createElement('div');
+		button.innerHTML = 'Rotate X'
+		button.style.border = '1px solid black'
+		button.style.padding = '10px';
+		button.style.width = '70px';
+		button.style.height = '20px';
+		button.style.borderRadius = '6px';
+		button.style.cursor = 'pointer';
+		button.style.className = "button";
+		button.style.background = 'lightgrey';
+		container.appendChild(button);
+
 		camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 		camera.position.y = 150;
 		camera.position.z = 400;
 
-		// projector = new THREE.Projector();
-
 		scene = new THREE.Scene();
-		// Cube
+		// Cube size
 		var size = 100;
 
-
+		//cube materials
 		var transparent = new THREE.MeshLambertMaterial({
 			vertexColors: THREE.FaceColors,
 			overdraw: 1,
@@ -106,7 +116,6 @@ Defmech.RotationWithQuaternion = (function() {
 			transparent: false,
 			color: 0xffb000
 		});
-
 		var cubeMaterial = [transparent, white, yellow, red, green, blue, orange];
 
 		var boxGeometryW1R = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
@@ -150,7 +159,7 @@ Defmech.RotationWithQuaternion = (function() {
 		}
 
 
-// CUBES!---------------------------------------------------------------
+		// CUBES!---------------------------------------------------------------
 		cube0 = new THREE.Mesh(boxGeometryW1R, cubeMaterial);
 			cube1 = new THREE.Mesh(boxGeometryY2L, cubeMaterial);
 			cube2 = new THREE.Mesh(boxGeometryW1R, cubeMaterial);
@@ -289,21 +298,16 @@ Defmech.RotationWithQuaternion = (function() {
 			// scene.add(cube25)
 			// scene.add(cube26)
 
-	// CUBES!---------------------------------------------------------------
-
-
+		// CUBES!---------------------------------------------------------------
 
 		renderer = new THREE.CanvasRenderer();
 		renderer.setClearColor(0xfffff); //BACKGROUND COLOR
 		renderer.setSize(window.innerWidth, window.innerHeight);
-
 		container.appendChild(renderer.domElement);
 		// var canvas = document.getElementsByTagName('canvas')[0];
 		document.addEventListener('mousedown', onDocumentMouseDown, false);
-		// button.addEventListener('click',() => cube0.rotateY(-Math.PI / 2));
-		// document.addEventListener('mousedown', onDocumentMouseDown, false);
-
-		window.addEventListener('resize', onWindowResize, false);
+		button.addEventListener('click',() => cube0.rotateY(-Math.PI / 2));
+		// window.addEventListener('resize', onWindowResize, false);
 
 		animate();
 	}; //end initialize / setup
@@ -369,13 +373,23 @@ function getFace(event){
 		vector.unproject(camera);
 		ray.setFromCamera( mouse, camera);
 		var intersects = ray.intersectObjects( scene.children );
+		console.log('i',intersects[0]);
+		var selectedCube, selectedFace;
 
 		if ( intersects.length > 0 ) {
-			var selectedCube;
 			intersects.forEach(hit => {
-				if (hit.face.materialIndex > 0) selectedCube = hit.object;
+				if (hit.face.materialIndex > 0) {
+					selectedCube = hit.object;
+					selectedFace = hit.faceIndex;
+				}
 			});
 		}
+		console.log('scube', selectedCube);
+		console.log('sface', selectedFace);
+		// call a method closestPlane()
+		// finds the correct plane to
+
+		//call rotate
 }
 
 function projectOnTrackball(touchX, touchY) {

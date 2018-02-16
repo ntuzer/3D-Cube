@@ -1,7 +1,7 @@
 # Background / Overview
 3D cube is a 3d Rubik's cube game.
 
-![Live Demo](https://ntuzer.github.io/3D-Cube/)
+![](https://ntuzer.github.io/3D-Cube/)
 
 Users can interact with a rotating 3d cube
 and try to solve it by rotating the cubes faces.
