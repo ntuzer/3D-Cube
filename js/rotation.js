@@ -1,8 +1,8 @@
-window.log = function() {
-	if (this.console) {
-		console.log(Array.prototype.slice.call(arguments));
-	}
-};
+// window.log = function() {
+// 	if (this.console) {
+// 		console.log(Array.prototype.slice.call(arguments));
+// 	}
+// };
 
 // Namespace
 var Defmech = Defmech || {};
@@ -71,6 +71,13 @@ Defmech.RotationWithQuaternion = (function() {
 	};
 	var deltaX = 0,
 			deltaY = 0;
+
+	var ROTATION_TYPES = {
+		1:{}
+	};
+
+
+
 
 	var setup = function() {
 
@@ -546,23 +553,18 @@ function getFace(event){
 		vector.unproject(camera);
 		ray.setFromCamera( mouse, camera);
 		var intersects = ray.intersectObjects( scene.children );
-		console.log('i',intersects[0]);
 		var selectedCube, selectedFace, selectedPoint;
 
 		if ( intersects.length > 0 ) {
-			intersects.forEach(hit => {
-				if (hit.face.materialIndex > 0) {
-					selectedCube = hit.object;
-					selectedFace = hit.faceIndex;
-					selectedPoint = hit.point;
-				}
-			});
+			for(var i = 0; i < intersects.length; i++)
+				if (intersects[0].face.materialIndex > 0) {
+					selectedCube = intersects[0].object;
+					selectedFace = intersects[0].faceIndex;
+					selectedPoint = intersects[0].point;
+			}
 		}
-		console.log('scube', selectedCube);
-		console.log('sface', selectedFace);
 
 		determineRotationType(selectedCube, selectedFace);
-		// call a method closestPlane()
 		// finds the correct plane to
 
 		// var center1 = getWorldPosition(cube1,[26, 27]);
@@ -579,11 +581,17 @@ function getFace(event){
 		//call rotate
 }
 
-function determineRotationType(){
+function determineRotationType(cube, face){
+	var cubeOfRotation = closestPlane(cube, face);
 
 }
-function closestPlane(){
+function closestPlane(cube, face){
+	var cubeNum = cubeSTATE[cube];
 
+
+
+
+	return aCube;
 }
 
 function getWorldPosition(cubo, faces){
