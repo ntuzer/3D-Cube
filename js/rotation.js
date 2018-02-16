@@ -103,20 +103,36 @@ Defmech.RotationWithQuaternion = (function() {
 								  27:[18, 19, 36, 37, 94, 95]
 								};
 
-		cubeSTATE = {1: cube1, 2: cube2,
-								 3: cube3, 4: cube4,
-								 5: cube5, 6: cube6,
-								 7: cube7, 8: cube8,
-								 9: cube9, 10: cube10,
-								 11: cube11, 12: cube12,
-								 13: cube13, 14: cube14,
-								 15: cube15, 16: cube16,
-								 17: cube17, 18: cube18,
-								 19: cube19, 20: cube20,
-								 21: cube21, 22: cube22,
-								 23: cube23, 24: cube24,
-								 25: cube25, 26: cube26,
-								 27: cube27
+		// cubeSTATE = {1: cube1, 2: cube2,
+		// 						 3: cube3, 4: cube4,
+		// 						 5: cube5, 6: cube6,
+		// 						 7: cube7, 8: cube8,
+		// 						 9: cube9, 10: cube10,
+		// 						 11: cube11, 12: cube12,
+		// 						 13: cube13, 14: cube14,
+		// 						 15: cube15, 16: cube16,
+		// 						 17: cube17, 18: cube18,
+		// 						 19: cube19, 20: cube20,
+		// 						 21: cube21, 22: cube22,
+		// 						 23: cube23, 24: cube24,
+		// 						 25: cube25, 26: cube26,
+		// 						 27: cube27
+		// 					 };
+
+		cubeSTATE = {cube1: 1, cube2: 2,
+								 cube3: 3, cube4: 4,
+								 cube5: 5, cube6: 6,
+								 cube7: 7, cube8: 8,
+								 cube9: 9, cube10: 10,
+								 cube11: 11, cube12: 12,
+								 cube13: 13, cube14: 14,
+								 cube15: 15, cube16: 16,
+								 cube17: 17, cube18: 18,
+								 cube19: 19, cube20: 20,
+								 cube21: 21, cube22: 22,
+								 cube23: 23, cube24: 24,
+								 cube25: 25, cube26: 26,
+								 cube27: 27, cube28: 28,
 							 };
 		container = document.createElement('div');
 		container.style.display = 'flex';
@@ -544,6 +560,8 @@ function getFace(event){
 		}
 		console.log('scube', selectedCube);
 		console.log('sface', selectedFace);
+
+		determineRotationType(selectedCube, selectedFace);
 		// call a method closestPlane()
 		// finds the correct plane to
 
@@ -559,6 +577,13 @@ function getFace(event){
 		// console.log("cube0", dist2);;
 
 		//call rotate
+}
+
+function determineRotationType(){
+
+}
+function closestPlane(){
+
 }
 
 function getWorldPosition(cubo, faces){
