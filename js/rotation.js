@@ -592,7 +592,7 @@ function closestPlane(cube, face){
 
 
 
-	return aCube;
+// 	return aCube;
 }
 
 function getWorldPosition(cubo, faces){
