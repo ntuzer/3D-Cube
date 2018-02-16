@@ -1,3 +1,4 @@
+
 // window.log = function() {
 // 	if (this.console) {
 // 		console.log(Array.prototype.slice.call(arguments));
@@ -139,7 +140,7 @@ Defmech.RotationWithQuaternion = (function() {
 								 cube21: 21, cube22: 22,
 								 cube23: 23, cube24: 24,
 								 cube25: 25, cube26: 26,
-								 cube27: 27, cube28: 28,
+								 cube27: 27
 							 };
 		container = document.createElement('div');
 		container.style.display = 'flex';
