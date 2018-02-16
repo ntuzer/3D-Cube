@@ -388,8 +388,15 @@ function getFace(event){
 		console.log('sface', selectedFace);
 		// call a method closestPlane()
 		// finds the correct plane to
-
+		something();
 		//call rotate
+}
+
+function getWorldPosition(cubo, faces){
+	var norm = new THREE.Matrix3().getNormalMatrix( cubo.matrixWorld );
+	var world1 = cubo.geometry.faces[faces[0]].normal.clone().applyMatrix3(norm).normalize();
+	var world2 = cubo.geometry.faces[faces[1]].normal.clone().applyMatrix3(norm).normalize();
+	return world1;
 }
 
 function projectOnTrackball(touchX, touchY) {
