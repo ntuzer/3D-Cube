@@ -1,0 +1,13 @@
+body {
+  background: white;
+  display: flex;
+  justify-content: center;
+}
+
+body div {
+  margin-bottom: 10px;
+}
+
+canvas {
+  margin-top: 100px;
+}

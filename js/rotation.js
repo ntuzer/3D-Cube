@@ -8,6 +8,7 @@ https://github.com/stemkoski/three.js
 http://stemkoski.github.io/Three.js/Mouse-Click.html
 */
 
+import { cubes } from '../faces.js';
 
 // Namespace
 var RubiksCube = RubiksCube || {};
@@ -115,67 +116,51 @@ RubiksCube.RotationWithQuaternion = (function() {
 								  27:[18, 19, 36, 37, 94, 95]
 								};
 
-		// cubeSTATE = {1: cube1, 2: cube2,
-		// 						 3: cube3, 4: cube4,
-		// 						 5: cube5, 6: cube6,
-		// 						 7: cube7, 8: cube8,
-		// 						 9: cube9, 10: cube10,
-		// 						 11: cube11, 12: cube12,
-		// 						 13: cube13, 14: cube14,
-		// 						 15: cube15, 16: cube16,
-		// 						 17: cube17, 18: cube18,
-		// 						 19: cube19, 20: cube20,
-		// 						 21: cube21, 22: cube22,
-		// 						 23: cube23, 24: cube24,
-		// 						 25: cube25, 26: cube26,
-		// 						 27: cube27
-		// 					 };
-
-		cubeSTATE = {cube1: 1, cube2: 2,
-								 cube3: 3, cube4: 4,
-								 cube5: 5, cube6: 6,
-								 cube7: 7, cube8: 8,
-								 cube9: 9, cube10: 10,
-								 cube11: 11, cube12: 12,
-								 cube13: 13, cube14: 14,
-								 cube15: 15, cube16: 16,
-								 cube17: 17, cube18: 18,
-								 cube19: 19, cube20: 20,
-								 cube21: 21, cube22: 22,
-								 cube23: 23, cube24: 24,
-								 cube25: 25, cube26: 26,
-								 cube27: 27
+		cubeSTATE = {1: cube1, 2: cube2,
+								 3: cube3, 4: cube4,
+								 5: cube5, 6: cube6,
+								 7: cube7, 8: cube8,
+								 9: cube9, 10: cube10,
+								 11: cube11, 12: cube12,
+								 13: cube13, 14: cube14,
+								 15: cube15, 16: cube16,
+								 17: cube17, 18: cube18,
+								 19: cube19, 20: cube20,
+								 21: cube21, 22: cube22,
+								 23: cube23, 24: cube24,
+								 25: cube25, 26: cube26,
+								 27: cube27
 							 };
+
 		container = document.createElement('div');
 		container.style.display = 'flex';
 		container.style.alignItems = 'center';
-		container.style.height = '800px';
-		container.style.background = 'black';
+		container.style.height = 'fit-content';
 		document.body.appendChild(container);
 
-		var info = document.createElement('div');
-		info.style.position = 'absolute';
-		info.style.top = '10px';
-		info.style.width = '100px';
-		info.style.textAlign = 'center';
-		info.innerHTML = '3D - cube0';
-		container.appendChild(info);
+		// var info = document.createElement('div');
+		// info.style.position = 'absolute';
+		// info.style.top = '10px';
+		// info.style.width = '100px';
+		// info.style.textAlign = 'center';
+		// info.innerHTML = '3D - cube0';
+		// document.body.appendChild(info);
 
-		// var button = document.createElement('div');
-		// button.innerHTML = 'Rotate X'
-		// button.style.border = '1px solid black'
-		// button.style.padding = '10px';
-		// button.style.width = '70px';
-		// button.style.height = '20px';
-		// button.style.borderRadius = '6px';
-		// button.style.cursor = 'pointer';
-		// button.style.className = "button";
-		// button.style.background = 'lightgrey';
-		// container.appendChild(button);
+		var button = document.createElement('div');
+		button.innerHTML = 'Rotate X'
+		button.style.border = '1px solid black'
+		button.style.padding = '10px';
+		button.style.width = '70px';
+		button.style.height = '20px';
+		button.style.borderRadius = '6px';
+		button.style.cursor = 'pointer';
+		button.style.className = "button";
+		button.style.background = 'lightgrey';
+		container.appendChild(button);
 
 		camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-		camera.position.y = 150;
-		camera.position.z = 400;
+		camera.position.y = 50;
+		camera.position.z = 500;
 
 		scene = new THREE.Scene();
 		// Cube size
@@ -186,7 +171,7 @@ RubiksCube.RotationWithQuaternion = (function() {
 			vertexColors: THREE.FaceColors,
 			overdraw: 1,
 			transparent: true,
-			opacity: 0.007
+			opacity: 0.01
 		});
 		var white = new THREE.MeshBasicMaterial({
 			overdraw: 1,
@@ -221,32 +206,32 @@ RubiksCube.RotationWithQuaternion = (function() {
 		var cubeMaterial = [transparent, white, yellow, red, orange, blue, green];
 
 		var boxGeometry1 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry2 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry3 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry4 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry5 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry6 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry7 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry8 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry9 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry10 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry11 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry12 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry13 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry14 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry15 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry16 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry17 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry18 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry19 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry20 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry21 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry22 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry23 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry24 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry25 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry26 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
-		var boxGeometry27 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry2 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry3 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry4 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry5 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry6 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry7 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry8 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry9 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry10 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry11 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry12 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry13 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry14 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry15 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry16 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry17 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry18 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry19 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry20 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry21 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry22 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry23 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry24 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry25 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry26 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
+			var boxGeometry27 = new THREE.BoxGeometry(size, size, size, 3, 3, 3);
 
 		//SET FACES
 		var faceColorKey = {
@@ -487,11 +472,23 @@ RubiksCube.RotationWithQuaternion = (function() {
 
 		renderer = new THREE.CanvasRenderer();
 		renderer.setClearColor(0xfffff); //BACKGROUND COLOR
-		renderer.setSize(window.innerWidth, window.innerHeight);
-		container.appendChild(renderer.domElement);
+		renderer.setSize(700, 700);
+		document.getElementsByTagName('section')[0].appendChild(renderer.domElement);
 		// var canvas = document.getElementsByTagName('canvas')[0];
-		document.addEventListener('mousedown', onDocumentMouseDown, false);
-		// button.addEventListener('click',() => cube1.rotateY(-Math.PI / 2));
+		console.log(document.getElementsByTagName('canvas')[0]);
+		document.getElementsByTagName('canvas')[0].addEventListener('mousedown', onDocumentMouseDown, false);
+		document.getElementsByTagName('canvas')[0].addEventListener('contextmenu', getFace, false);
+		button.addEventListener('click',() => {
+			cube1.rotateY(-Math.PI / 2)
+			cube3.rotateY(-Math.PI / 2)
+			cube19.rotateY(-Math.PI / 2)
+			cube21.rotateY(-Math.PI / 2)
+			cube2.rotateY(-Math.PI / 2)
+			cube10.rotateY(-Math.PI / 2)
+			cube12.rotateY(-Math.PI / 2)
+			cube20.rotateY(-Math.PI / 2)
+
+		});
 		// window.addEventListener('resize', onWindowResize, false);
 
 		animate();
@@ -510,8 +507,8 @@ function onWindowResize() {
 function onDocumentMouseDown(event) {
 	event.preventDefault();
 
-	document.addEventListener('mousemove', onDocumentMouseMove, false);
-	document.addEventListener('mouseup', onDocumentMouseUp, false);
+	document.getElementsByTagName('canvas')[0].addEventListener('mousemove', onDocumentMouseMove, false);
+	document.getElementsByTagName('canvas')[0].addEventListener('mouseup', onDocumentMouseUp, false);
 
 	mouseDown = true;
 
@@ -544,30 +541,37 @@ function onDocumentMouseUp(event) {
 
 	mouseDown = false;
 
-	document.removeEventListener('mousemove', onDocumentMouseMove, false);
-	document.removeEventListener('mouseup', onDocumentMouseUp, false);
+	document.getElementsByTagName('canvas')[0].removeEventListener('mousemove', onDocumentMouseMove, false);
+	document.getElementsByTagName('canvas')[0].removeEventListener('mouseup', onDocumentMouseUp, false);
 
-	getFace(event);
+	// getFace(event);
 }
 
 function getFace(event){
+		event.preventDefault();
 		mouse.x = ((event.clientX - renderer.domElement.offsetLeft) / renderer.domElement.clientWidth) * 2 - 1;
 		mouse.y = - ((event.clientY - renderer.domElement.offsetTop) / renderer.domElement.clientHeight) * 2 + 1;
 
 		var vector = new THREE.Vector3( mouse.x, mouse.y, 0 );
 		vector.unproject(camera);
-		ray.setFromCamera( mouse, camera);
+		ray.setFromCamera(mouse, camera);
 		var intersects = ray.intersectObjects( scene.children );
 		var selectedCube, selectedFace, selectedPoint;
 
+		console.log(intersects);
 		if ( intersects.length > 0 ) {
 			for(var i = 0; i < intersects.length; i++)
-				if (intersects[0].face.materialIndex > 0) {
-					selectedCube = intersects[0].object;
-					selectedFace = intersects[0].faceIndex;
-					selectedPoint = intersects[0].point;
+				if (intersects[i].face.materialIndex > 0) {
+					selectedCube = intersects[i].object;
+					selectedFace = intersects[i].faceIndex;
+					selectedPoint = intersects[i].point;
 			}
 		}
+
+		console.log(selectedCube);
+		console.log(selectedFace);
+		console.log(cubes);
+
 
 		determineRotationType(selectedCube, selectedFace);
 		// finds the correct plane to
@@ -590,6 +594,7 @@ function determineRotationType(cube, face){
 	var cubeOfRotation = closestPlane(cube, face);
 
 }
+
 function closestPlane(cube, face){
 	var cubeNum = cubeSTATE[cube];
 
