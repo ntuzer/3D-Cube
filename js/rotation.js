@@ -24,6 +24,7 @@ RubiksCube.RotationWithQuaternion = (function() {
 	var movements, facements;
 	var face1, face3, face4, face6, face7, face9, face10, face12, face14, face15, face16, face17;
 	var faceToMovement, faceToCube, cubeToFace;
+	var direction;
 	var container;
 	var camera, scene, renderer;
 	var cube1, cube2, cube3,
@@ -90,34 +91,34 @@ RubiksCube.RotationWithQuaternion = (function() {
 
 	var setup = function() {
 
-		facesSTATE = {1:[12, 13, 88, 89, 58, 59],
-								  2:[14, 15, 64, 65],
-								  3:[16, 17, 70, 71, 102, 103],
-								  4:[6, 7, 82, 83],
-								  5:[8, 9],
-								  6:[10, 11, 96, 97],
-								  7:[0, 1, 76, 77, 52, 53],
-								  8:[2, 3, 46, 47],
-								  9:[4, 5, 40, 41, 90, 91],
-								  10:[86, 87, 56, 57],
-								  11:[62, 63],
-								  12:[68, 69, 104, 105],
-								  13:[80, 81],
-								  14:[],
-								  15:[98, 99],
-								  16:[74, 75, 50, 51],
-								  17:[44, 45],
-								  18:[38, 39, 92, 93],
-								  19:[34, 35, 54, 55, 84, 85],
-								  20:[32, 33, 60, 61],
-								  21:[30, 31, 66, 67, 106, 107],
-								  22:[28, 29, 78, 79],
-								  23:[26, 27],
-								  24:[24, 25, 100, 101],
-								  25:[22, 23, 48, 49, 72, 73],
-								  26:[20, 21, 42, 43],
-								  27:[18, 19, 36, 37, 94, 95]
-								};
+		// facesSTATE = {1:[12, 13, 88, 89, 58, 59],
+		// 						  2:[14, 15, 64, 65],
+		// 						  3:[16, 17, 70, 71, 102, 103],
+		// 						  4:[6, 7, 82, 83],
+		// 						  5:[8, 9],
+		// 						  6:[10, 11, 96, 97],
+		// 						  7:[0, 1, 76, 77, 52, 53],
+		// 						  8:[2, 3, 46, 47],
+		// 						  9:[4, 5, 40, 41, 90, 91],
+		// 						  10:[86, 87, 56, 57],
+		// 						  11:[62, 63],
+		// 						  12:[68, 69, 104, 105],
+		// 						  13:[80, 81],
+		// 						  14:[],
+		// 						  15:[98, 99],
+		// 						  16:[74, 75, 50, 51],
+		// 						  17:[44, 45],
+		// 						  18:[38, 39, 92, 93],
+		// 						  19:[34, 35, 54, 55, 84, 85],
+		// 						  20:[32, 33, 60, 61],
+		// 						  21:[30, 31, 66, 67, 106, 107],
+		// 						  22:[28, 29, 78, 79],
+		// 						  23:[26, 27],
+		// 						  24:[24, 25, 100, 101],
+		// 						  25:[22, 23, 48, 49, 72, 73],
+		// 						  26:[20, 21, 42, 43],
+		// 						  27:[18, 19, 36, 37, 94, 95]
+		// 						};
 
 
 		container = document.createElement('div');
@@ -694,40 +695,128 @@ RubiksCube.RotationWithQuaternion = (function() {
 		  27:[18, 19, 36, 37, 94, 95]
 		};
 
-			//movements  THEORY is 1 moves to 3 (goes to)
+
+		//direction
+		var mathPi = Math.PI / 2;
+		direction = {1:mathPi, 3:-mathPi, 4:mathPi, 6:-mathPi, 7:-mathPi, 9:-mathPi, 10:mathPi, 12:mathPi, 14:mathPi, 15:-mathPi, 16:mathPi, 17:-mathPi};
+
+			//movements  THEORY is 3 becomes to 1
+		//
+		// move1    = {  3:1, 6:2, 9:3, 2:4, 5:5, 8:6, 1:7, 4:8, 7:9  };
+		// 	move3  = { 10:12, 11:15, 12:18, 13:11, 14:14, 15:17, 16:10, 17:13, 18:16 };
+		// 	move4  = { 10:16, 11:13, 12:10, 13:17, 14:14, 15:11, 16:18, 17:15, 18:12 };
+		// 	move6  = { 25:19, 22:20, 19:21, 26:22, 23:23, 20:24, 27:25, 24:26, 21:27 };
+		// 	move7  = { 19:1, 10:2, 1:3, 20:10, 11:11, 2:12, 21:19, 12:20, 3:21 };
+		// 	move9  = { 22:4, 13:5, 4:6, 23:13, 14:14, 5:15, 24:22, 15:23, 6:24 };
+		// 	move10 = { 6:4, 15:5, 24:6, 5:13, 14:14, 23:15, 4:22, 13:23, 22:24 };
+		// 	move12 = { 9:7, 18:8, 27:9, 8:16, 17:17, 26:18, 7:25, 16:26, 25:27 };
+		// 	move14 = { 7:1, 16:4, 25:7, 4:10, 13:13, 22:16, 1:19, 10:22, 19:25 };
+		// 	move15 = { 20:2, 11:5, 2:8, 23:11, 14:14, 5:17, 26:20, 17:23, 8:26 };
+		// 	move16 = { 8:2, 17:5, 26:8, 5:11, 14:14, 23:17, 2:20, 11:23, 20:26 };
+		// 	move17 = { 21:3, 12:6, 3:9, 24:12, 15:15, 6:18, 27:21, 18:24, 9:27 };
+
+		move1    = {  3:1, 6:2, 9:3, 2:4, 5:5, 8:6, 1:7, 4:8, 7:9  };
+			move3  = { 10:12, 11:15, 12:18, 13:11, 14:14, 15:17, 16:10, 17:13, 18:16 };
+			move4  = { 10:16, 11:13, 12:10, 13:17, 14:14, 15:11, 16:18, 17:15, 18:12 };
+			move6  = { 25:19, 22:20, 19:21, 26:22, 23:23, 20:24, 27:25, 24:26, 21:27 };
+			move7  = { 19:1, 10:2, 1:3, 20:10, 11:11, 2:12, 21:19, 12:20, 3:21 };
+			move9  = { 22:4, 13:5, 4:6, 23:13, 14:14, 5:15, 24:22, 15:23, 6:24 };
+			move10 = { 6:4, 15:5, 24:6, 5:13, 14:14, 23:15, 4:22, 13:23, 22:24 };
+			move12 = { 9:7, 18:8, 27:9, 8:16, 17:17, 26:18, 7:25, 16:26, 25:27 };
+			move14 = { 7:1, 16:4, 25:7, 4:10, 13:13, 22:16, 1:19, 10:22, 19:25 };
+			move15 = { 20:2, 11:5, 2:8, 23:11, 14:14, 5:17, 26:20, 17:23, 8:26 };
+			move16 = { 8:2, 17:5, 26:8, 5:11, 14:14, 23:17, 2:20, 11:23, 20:26 };
+			move17 = { 21:3, 12:6, 3:9, 24:12, 15:15, 6:18, 27:21, 18:24, 9:27 };
+
 
 		movements = { 1:move1, 3:move3, 4:move4, 6:move6, 7:move7, 9:move9, 10:move10, 12:move12, 14:move14, 15:move15, 16:move16, 17:move17 }
-		move1    = {  1:3,  2:6,  3:9,  4:2,  5:5,  6:8,  7:1,  8:4,  9:7  };
-			move3  = {  10:16,  11:13,  12:10,  13:17,  14:14,  15:11,  16:18,  17:15,  18:13  };
-			move4  = {  10:13,  11:15,  12:18,  13:11,  14:14,  15:17,  16:10,  17:13,  18:16  };
-			move6  = {  19:25,  20:22,  21:19,  22:26,  23:23,  24:20,  25:27,  26:24,  27:21  };
-			move7  = {  1:19,  2:10,  3:1,  10:20,  11:11,  12:2,  19:21,  20:12,  21:3  };
-			move9  = {  4:22,  5:13,  6:4,  13:23,  14:14,  15:5,  22:24,  23:15,  24:6  };
-			move10 = {  4:6,  5:15,  6:24,  13:5,  14:14,  15:23,  22:4,  23:13,  24:22  };
-			move12 = {  7:9,  8:18,  9:27,  16:8,  17:17,  18:26,  25:7,  26:16,  27:25  };
-			move14 = {  1:7,  4:16,  7:25,  10:4,  13:13,  16:22,  19:1,  22:10,  25:19  };
-			move15 = {  2:20,  5:11,  8:2,  11:23,  14:14,  17:5,  20:26,  23:17,  26:8  };
-			move16 = {  2:8,  5:17,  8:26,  11:5,  14:14,  17:23,  20:2,  23:11,  26:20  };
-			move17 = {  3:21,  6:12,  9:3,  12:24,  15:15,  18:6,  21:27,  24:18,  27:9  };
-
 
 			//faceMap
 
+		face1 = { 40:103, 41:102, 46:97, 47:96, 52:91, 53:90, 76:40,
+			77:41, 82:46, 83:47, 88:52, 89:53, 58:76, 59:77, 64:82, 65:83,
+			70:88, 71:89, 103:58, 102:59, 97:64, 96:65, 91:70, 90:71, 0:4,
+			1:5, 2:10, 3:11, 4:16, 5:17, 6:2, 7:3, 8:8, 9:9, 10:14, 11:15,
+			12:0, 13:1, 14:6, 15:7, 16:12, 17:13 };
+			face3 = { 38:74, 39:75, 44:80, 45:81, 50:86, 51:87, 74:56,
+				75:57, 80:62, 81:63, 86:68, 87:69, 56:105, 57:104, 62:99,
+				63:98, 68:93, 69:92, 105:38, 104:39, 99:44, 98:45, 93:50,
+				92:51 };
+			face4 = { 38:105, 39:104, 44:99, 45:98, 50:93, 51:92, 74:38,
+				75:39, 80:44, 81:45, 86:50, 87:51, 56:74, 57:75, 62:80,
+				63:81, 68:86, 69:87, 105:56, 104:57, 99:62, 98:63, 93:68,
+				92:69 };
+			face6 = { 36:72, 37:73, 42:78, 43:79, 48:84, 49:85, 72:54,
+				73:55, 78:60, 79:61, 84:66, 85:67, 54:107, 55:106, 60:101,
+				61:100, 66:95, 67:94, 107:36, 106:37, 101:42, 100:43,
+				95:48, 94:49, 18:22, 19:23, 20:28, 21:29, 22:34, 23:35,
+				24:20, 25:21, 26:26, 27:27, 28:32, 29:33, 30:18, 31:19,
+				32:24, 33:25, 34:30, 35:31 };
+			face7 = { 12:102, 13:103, 14:104, 15:105, 16:106, 17:107,
+				102:30, 103:31, 104:32, 105:33, 106:34, 107:35, 30:84,
+				31:85, 32:86, 33:87, 34:88, 35:89, 84:12, 85:13, 86:14,
+				87:15, 88:16, 89:17, 54:58, 55:59, 56:64, 57:65, 58:70,
+				59:71, 60:56, 61:57, 62:63, 63:62, 64:68, 65:69, 66:54,
+				67:55, 68:60, 69:61, 70:66, 71:67 };
+			face9 = { 6:96, 7:97, 8:98, 9:99, 10:100, 11:101, 96:24,
+				97:25, 98:26, 99:27, 100:28, 101:29, 24:78, 25:79, 26:80,
+				27:81, 28:82, 29:83, 78:6, 79:7, 80:8, 81:9, 82:10, 83:11 };
+			face10 = { 6:78, 7:79, 8:80, 9:81, 10:82, 11:83, 96:6,
+				97:7, 98:8, 99:9, 100:10, 101:11, 24:96, 25:97, 26:98,
+				27:99, 28:100, 29:101, 78:24, 79:25, 80:26, 81:27,
+				82:28, 83:29 };
+			face12 = { 0:72, 1:73, 2:74, 3:75, 4:76, 5:77, 72:18, 73:19,
+				74:20, 75:21, 76:22, 77:23, 18:90, 19:91, 20:92, 21:93,
+				22:94, 23:95, 90:0, 91:1, 92:2, 93:3, 94:4, 95:5, 36:40,
+				37:41, 38:46, 39:47, 40:52, 41:53, 42:38, 43:39, 44:44,
+				45:45, 46:50, 47:51, 48:36, 49:37, 50:42, 51:43, 52:48,
+				53:49 };
+			face14 = { 0:59, 1:58, 6:57, 7:56, 12:55, 13:54, 59:35, 58:34,
+				57:29, 56:28, 55:23, 54:22, 35:48, 34:49, 29:50, 28:51, 23:52,
+				22:53, 48:0, 49:1, 50:6, 51:7, 52:12, 53:13, 72:76, 73:77,
+				74:82, 75:83, 76:88, 77:89, 78:74, 79:75, 80:80, 81:81, 82:86,
+				83:87, 84:72, 85:73, 86:78, 87:79, 88:84, 89:85 };
+			face15 = { 2:42, 3:43, 8:44, 9:45, 14:46, 15:47, 42:33, 43:32,
+				44:27, 45:26, 46:21, 47:20, 33:65, 32:64, 27:63, 26:62, 21:61,
+				20:60, 65:2, 64:3, 63:8, 62:9, 61:14, 60:15 };
+			face16 = { 2:65, 3:64, 8:63, 9:62, 14:61, 15:60, 42:2, 43:3,
+				44:8, 45:9, 46:14, 47:15, 33:42, 32:43, 27:44, 26:45, 21:46,
+				20:47, 65:33, 64:32, 63:27, 62:26, 61:21, 60:20 };
+			face17 = { 4:36, 5:37, 10:38, 11:39, 16:40, 17:41, 36:31, 37:30,
+				38:25, 39:24, 40:19, 41:18, 31:71, 30:70, 25:69, 24:68, 19:67,
+				18:66, 71:4, 70:5, 69:10, 68:11, 67:16, 66:17, 90:94, 91:95,
+				92:100, 93:101, 94:106, 95:107, 96:92, 97:93, 98:98, 99:99,
+				100:104, 101:105, 102:90, 103:91, 104:96, 105:97, 106:102, 107:103 };
 		facements = { 1:face1, 3:face3, 4:face4, 6:face6, 7:face7, 9:face9, 10:face10, 12:face12, 14:face14, 15:face15, 16:face16, 17:face17 }
-		face1 = { 40:103, 41:102, 46:97, 47:96, 52:91, 53:90, 76:40, 77:41, 82:46, 83:47, 88:52, 89:53, 58:76, 59:77, 64:82, 65:83, 70:88, 71:89, 103:58, 102:59, 97:64, 96:65, 91:70, 90:71, 0:4, 1:5, 2:10, 3:11, 4:16, 5:17, 6:2, 7:3, 8:8, 9:9, 10:14, 11:15, 12:0, 13:1, 14:6, 15:7, 16:12, 17:13 };
-			face3 = { 38:74, 39:75, 44:80, 45:81, 50:86, 51:87, 74:56, 75:57, 80:62, 81:63, 86:68, 87:69, 56:105, 57:104, 62:99, 63:98, 68:93, 69:92, 105:38, 104:39, 99:44, 98:45, 93:50, 92:51 };
-			face4 = { 38:105, 39:104, 44:99, 45:98, 50:93, 51:92, 74:38, 75:39, 80:44, 81:45, 86:50, 87:51, 56:74, 57:75, 62:80, 63:81, 68:86, 69:87, 105:56, 104:57, 99:62, 98:63, 93:68, 92:69 };
-			face6 = { 36:72, 37:73, 42:78, 43:79, 48:84, 49:85, 72:54, 73:55, 78:60, 79:61, 84:66, 85:67, 54:107, 55:106, 60:101, 61:100, 66:95, 67:94, 107:36, 106:37, 101:42, 100:43, 95:48, 94:49, 18:22, 19:23, 20:28, 21:29, 22:34, 23:35, 24:20, 25:21, 26:26, 27:27, 28:32, 29:33, 30:18, 31:19, 32:24, 33:25, 34:30, 35:31 };
-			face7 = { 12:102, 13:103, 14:104, 15:105, 16:106, 17:107, 102:30, 103:31, 104:32, 105:33, 106:34, 107:35, 30:84, 31:85, 32:86, 33:87, 34:88, 35:89, 84:12, 85:13, 86:14, 87:15, 88:16, 89:17, 54:58, 55:59, 56:64, 57:65, 58:70, 59:71, 60:56, 61:57, 62:63, 63:62, 64:68, 65:69, 66:54, 67:55, 68:60, 69:61, 70:66, 71:67 };
-			face9 = { 6:96, 7:97, 8:98, 9:99, 10:100, 11:101, 96:24, 97:25, 98:26, 99:27, 100:28, 101:29, 24:78, 25:79, 26:80, 27:81, 28:82, 29:83, 78:6, 79:7, 80:8, 81:9, 82:10, 83:11 };
-			face10 = { 6:78, 7:79, 8:80, 9:81, 10:82, 11:83, 96:6, 97:7, 98:8, 99:9, 100:10, 101:11, 24:96, 25:97, 26:98, 27:99, 28:100, 29:101, 78:24, 79:25, 80:26, 81:27, 82:28, 83:29 };
-			face12 = { 0:72, 1:73, 2:74, 3:75, 4:76, 5:77, 72:18, 73:19, 74:20, 75:21, 76:22, 77:23, 18:90, 19:91, 20:92, 21:93, 22:94, 23:95, 90:0, 91:1, 92:2, 93:3, 94:4, 95:5, 36:40, 37:41, 38:46, 39:47, 40:52, 41:53, 42:38, 43:39, 44:44, 45:45, 46:50, 47:51, 48:36, 49:37, 50:42, 51:43, 52:48, 53:49 };
-			face14 = { 0:59, 1:58, 6:57, 7:56, 12:55, 13:54, 59:35, 58:34, 57:29, 56:28, 55:23, 54:22, 35:48, 34:49, 29:50, 28:51, 23:52, 22:53, 48:0, 49:1, 50:6, 51:7, 52:12, 53:13, 72:76, 73:77, 74:82, 75:83, 76:88, 77:89, 78:74, 79:75, 80:80, 81:81, 82:86, 83:87, 84:72, 85:73, 86:78, 87:79, 88:84, 89:85 };
-			face15 = { 2:42, 3:43, 8:44, 9:45, 14:46, 15:47, 42:33, 43:32, 44:27, 45:26, 46:21, 47:20, 33:65, 32:64, 27:63, 26:62, 21:61, 20:60, 65:2, 64:3, 63:8, 62:9, 61:14, 60:15 };
-			face16 = { 2:65, 3:64, 8:63, 9:62, 14:61, 15:60, 42:2, 43:3, 44:8, 45:9, 46:14, 47:15, 33:42, 32:43, 27:44, 26:45, 21:46, 20:47, 65:33, 64:32, 63:27, 62:26, 61:21, 60:20 };
-			face17 = { 4:36, 5:37, 10:38, 11:39, 16:40, 17:41, 36:31, 37:30, 38:25, 39:24, 40:19, 41:18, 31:71, 30:70, 25:69, 24:68, 19:67, 18:66, 71:4, 70:5, 69:10, 68:11, 67:16, 66:17, 90:94, 91:95, 92:100, 93:101, 94:106, 95:107, 96:92, 97:93, 98:98, 99:99, 100:104, 101:105, 102:90, 103:91, 104:96, 105:97, 106:102, 107:103 };
 
-
+		console.log('initial cubeState');
+		console.log(cubeState[1].id);
+		console.log(cubeState[2].id);
+		console.log(cubeState[3].id);
+		console.log(cubeState[4].id);
+		console.log(cubeState[5].id);
+		console.log(cubeState[6].id);
+		console.log(cubeState[7].id);
+		console.log(cubeState[8].id);
+		console.log(cubeState[9].id);
+		console.log(cubeState[10].id);
+		console.log(cubeState[11].id);
+		console.log(cubeState[12].id);
+		console.log(cubeState[13].id);
+		console.log(cubeState[14].id);
+		console.log(cubeState[15].id);
+		console.log(cubeState[16].id);
+		console.log(cubeState[17].id);
+		console.log(cubeState[18].id);
+		console.log(cubeState[19].id);
+		console.log(cubeState[20].id);
+		console.log(cubeState[21].id);
+		console.log(cubeState[22].id);
+		console.log(cubeState[23].id);
+		console.log(cubeState[24].id);
+		console.log(cubeState[25].id);
+		console.log(cubeState[26].id);
+		console.log(cubeState[27].id);
 		// CUBES!---------------------------------------------------------------
 
 		renderer = new THREE.CanvasRenderer();
@@ -737,17 +826,18 @@ RubiksCube.RotationWithQuaternion = (function() {
 		// var canvas = document.getElementsByTagName('canvas')[0];
 		document.getElementsByTagName('canvas')[0].addEventListener('mousedown', onDocumentMouseDown, false);
 		document.getElementsByTagName('canvas')[0].addEventListener('contextmenu', getFace, false);
-		button.addEventListener('click',() => {
-			cube1.rotateY(-Math.PI / 2)
-			cube3.rotateY(-Math.PI / 2)
-			cube19.rotateY(-Math.PI / 2)
-			cube21.rotateY(-Math.PI / 2)
-			cube2.rotateY(-Math.PI / 2)
-			cube10.rotateY(-Math.PI / 2)
-			cube12.rotateY(-Math.PI / 2)
-			cube20.rotateY(-Math.PI / 2)
-
-		});
+		// button.addEventListener('click',() => {
+		// 	cube1.rotateZ(Math.PI / 2)
+		// 	cube4.rotateZ(Math.PI / 2)
+		// 	cube7.rotateZ(Math.PI / 2)
+		// 	cube10.rotateZ(Math.PI / 2)
+		// 	cube13.rotateZ(Math.PI / 2)
+		// 	cube16.rotateZ(Math.PI / 2)
+		// 	cube19.rotateZ(Math.PI / 2)
+		// 	cube22.rotateZ(Math.PI / 2)
+		// 	cube25.rotateZ(Math.PI / 2)
+		//
+		// });
 		// window.addEventListener('resize', onWindowResize, false);
 
 		animate();
@@ -830,10 +920,39 @@ function getFace(event){
 		globalFace = faceState[physicalFace];
 		moveNum = faceToMovement[globalFace];
 
+
 		rotateMovement(moveNum);
 		cubeSwapper(movements[moveNum]);
 		faceSwapper(facements[moveNum]);
-
+console.log('cubestate');
+// console.log(cubeState);
+console.log(cubeState[1].id);
+console.log(cubeState[2].id);
+console.log(cubeState[3].id);
+console.log(cubeState[4].id);
+console.log(cubeState[5].id);
+console.log(cubeState[6].id);
+console.log(cubeState[7].id);
+console.log(cubeState[8].id);
+console.log(cubeState[9].id);
+console.log(cubeState[10].id);
+console.log(cubeState[11].id);
+console.log(cubeState[12].id);
+console.log(cubeState[13].id);
+console.log(cubeState[14].id);
+console.log(cubeState[15].id);
+console.log(cubeState[16].id);
+console.log(cubeState[17].id);
+console.log(cubeState[18].id);
+console.log(cubeState[19].id);
+console.log(cubeState[20].id);
+console.log(cubeState[21].id);
+console.log(cubeState[22].id);
+console.log(cubeState[23].id);
+console.log(cubeState[24].id);
+console.log(cubeState[25].id);
+console.log(cubeState[26].id);
+console.log(cubeState[27].id);
 }
 
 function rotateMovement(numMove){
@@ -845,36 +964,114 @@ function rotateMovement(numMove){
 		rotateZ(numMove);
 	}
 }
-
 function rotateX(numMove){
-	move
+	var pi = direction[numMove];
+	var hsh = movements[numMove];
+	var k = Object.values(hsh);
+	// debugger
+	cubeState[k[0]].rotateX(pi);
+	cubeState[k[1]].rotateX(pi);
+	cubeState[k[2]].rotateX(pi);
+	cubeState[k[3]].rotateX(pi);
+	cubeState[k[4]].rotateX(pi);
+	cubeState[k[5]].rotateX(pi);
+	cubeState[k[6]].rotateX(pi);
+	cubeState[k[7]].rotateX(pi);
+	cubeState[k[8]].rotateX(pi);
+
+
 }
 function rotateY(numMove){
-
+	var pi = direction[numMove];
+	var hsh = movements[numMove];
+	var k = Object.values(hsh);
+	cubeState[k[0]].rotateY(pi);
+	cubeState[k[1]].rotateY(pi);
+	cubeState[k[2]].rotateY(pi);
+	cubeState[k[3]].rotateY(pi);
+	cubeState[k[4]].rotateY(pi);
+	cubeState[k[5]].rotateY(pi);
+	cubeState[k[6]].rotateY(pi);
+	cubeState[k[7]].rotateY(pi);
+	cubeState[k[8]].rotateY(pi);
 }
 function rotateZ(numMove){
-
+	var pi = direction[numMove];
+	var hsh = movements[numMove];
+	var k = Object.values(hsh);
+	cubeState[k[0]].rotateZ(pi);
+	cubeState[k[1]].rotateZ(pi);
+	cubeState[k[2]].rotateZ(pi);
+	cubeState[k[3]].rotateZ(pi);
+	cubeState[k[4]].rotateZ(pi);
+	cubeState[k[5]].rotateZ(pi);
+	cubeState[k[6]].rotateZ(pi);
+	cubeState[k[7]].rotateZ(pi);
+	cubeState[k[8]].rotateZ(pi);
 }
 
 
 function cubeSwapper(hsh){
-	// THEORY 1 goes to 3 (3 becomes 1)
-	//  {  1:3,  2:6,  3:9,  4:2,  5:5,  6:8,  7:1,  8:4,  9:7  }
-	var keys = Object.keys(hsh);
-	var v = keys[0]
-	for (var i = 0; i<keys.length; i++){
+	var cSD = {};
+	var keyz = Object.keys(hsh);
 
+	Object.keys(cubeState).forEach(function(ky) {
+	     cSD[ ky ] = cubeState[ ky ];
+	});
+	// debugger
+	for (var i = 0; i<keyz.length; i++){
+		cSD[keyz[i]] = cubeState[hsh[keyz[i]]];
+		// v = hsh[v];
 	}
+	cubeState = cSD;
 
+
+	console.log(cubeState[1].id);
+	console.log(cubeState[2].id);
+	console.log(cubeState[3].id);
+	console.log(cubeState[4].id);
+	console.log(cubeState[5].id);
+	console.log(cubeState[6].id);
+	console.log(cubeState[7].id);
+	console.log(cubeState[8].id);
+	console.log(cubeState[9].id);
+	console.log(cubeState[10].id);
+	console.log(cubeState[11].id);
+	console.log(cubeState[12].id);
+	console.log(cubeState[13].id);
+	console.log(cubeState[14].id);
+	console.log(cubeState[15].id);
+	console.log(cubeState[16].id);
+	console.log(cubeState[17].id);
+	console.log(cubeState[18].id);
+	console.log(cubeState[19].id);
+	console.log(cubeState[20].id);
+	console.log(cubeState[21].id);
+	console.log(cubeState[22].id);
+	console.log(cubeState[23].id);
+	console.log(cubeState[24].id);
+	console.log(cubeState[25].id);
+	console.log(cubeState[26].id);
+	console.log(cubeState[27].id);
 }
-function faceSwapper(hsh){
-	//  THEORY 40 becomes 103
-	// { 40:103, 41:102, 46:97, 47:96, 52:91, 53:90, 76:40, 77:41, 82:46, 83:47, 88:52, 89:53, 58:76, 59:77, 64:82, 65:83, 70:88, 71:89, 103:58, 102:59, 97:64, 96:65, 91:70, 90:71, 0:4, 1:5, 2:10, 3:11, 4:16, 5:17, 6:2, 7:3, 8:8, 9:9, 10:14, 11:15, 12:0, 13:1, 14:6, 15:7, 16:12, 17:13 };
-	var keys = Object.keys(hsh);
-	var v = keys[0]
-	for (var i = 0; i<keys.length; i++){
 
+
+
+function faceSwapper(hsh){
+	var fSD = {};
+	var keyz = Object.keys(hsh);
+
+	Object.keys(faceState).forEach(function(ky) {
+	     fSD[ ky ] = faceState[ ky ];
+	});
+
+
+	for (var i = 0; i < keyz.length; i++){
+		fSD[keyz[i]] = faceState[hsh[keyz[i]]];
+		// v = hsh[v];
 	}
+
+	faceState = fSD;
 
 }
 
@@ -883,7 +1080,7 @@ function getWorldPosition(cubo, faces){
 	var norm = new THREE.Matrix3().getNormalMatrix( cubo.matrixWorld );
 	var world1 = cubo.geometry.faces[faces[0]].normal.clone().applyMatrix3(norm).normalize();
 	var world2 = cubo.geometry.faces[faces[1]].normal.clone().applyMatrix3(norm).normalize();
-	console.log(`${cubo.id}`,world1);
+	// console.log(`${cubo.id}`,world1);
 	return world1;
 }
 
