@@ -160,7 +160,7 @@ RubiksCube.RotationWithQuaternion = (function() {
 			vertexColors: THREE.FaceColors,
 			overdraw: 1,
 			transparent: true,
-			opacity: 0.01
+			opacity: 0
 		});
 		var white = new THREE.MeshBasicMaterial({
 			overdraw: 1,
@@ -346,6 +346,39 @@ RubiksCube.RotationWithQuaternion = (function() {
 			cube25 = new THREE.Mesh(boxGeometry25, cubeMaterial);
 			cube26 = new THREE.Mesh(boxGeometry26, cubeMaterial);
 			cube27 = new THREE.Mesh(boxGeometry27, cubeMaterial);
+
+			// cube1.id = 1;
+			// console.log(cube1);
+			// cube2.id = 2;
+			// cube3.id = 3;
+			// cube4.id = 4;
+			// cube5.id = 5;
+			// cube6.id = 6;
+			// cube7.id = 7;
+			// cube8.id = 8;
+			// cube9.id = 9;
+			// cube10.id = 10;
+			// cube11.id = 11;
+			// cube12.id = 12;
+			// cube13.id = 13;
+			// cube14.id = 14;
+			// cube15.id = 15;
+			// cube16.id = 16;
+			// cube17.id = 17;
+			// cube18.id = 18;
+			// cube19.id = 19;
+			// cube20.id = 20;
+			// cube21.id = 21;
+			// cube22.id = 22;
+			// cube23.id = 23;
+			// cube24.id = 24;
+			// cube25.id = 25;
+			// cube26.id = 26;
+			// cube27.id = 27;
+
+
+
+
 
 		cube1.position.x = 0;
 			cube1.position.y = 0;
@@ -789,34 +822,34 @@ RubiksCube.RotationWithQuaternion = (function() {
 				100:104, 101:105, 102:90, 103:91, 104:96, 105:97, 106:102, 107:103 };
 		facements = { 1:face1, 3:face3, 4:face4, 6:face6, 7:face7, 9:face9, 10:face10, 12:face12, 14:face14, 15:face15, 16:face16, 17:face17 }
 
-		console.log('initial cubeState');
-		console.log(cubeState[1].id);
-		console.log(cubeState[2].id);
-		console.log(cubeState[3].id);
-		console.log(cubeState[4].id);
-		console.log(cubeState[5].id);
-		console.log(cubeState[6].id);
-		console.log(cubeState[7].id);
-		console.log(cubeState[8].id);
-		console.log(cubeState[9].id);
-		console.log(cubeState[10].id);
-		console.log(cubeState[11].id);
-		console.log(cubeState[12].id);
-		console.log(cubeState[13].id);
-		console.log(cubeState[14].id);
-		console.log(cubeState[15].id);
-		console.log(cubeState[16].id);
-		console.log(cubeState[17].id);
-		console.log(cubeState[18].id);
-		console.log(cubeState[19].id);
-		console.log(cubeState[20].id);
-		console.log(cubeState[21].id);
-		console.log(cubeState[22].id);
-		console.log(cubeState[23].id);
-		console.log(cubeState[24].id);
-		console.log(cubeState[25].id);
-		console.log(cubeState[26].id);
-		console.log(cubeState[27].id);
+		// console.log('initial cubeState');
+		// console.log(cubeState[1].id);
+		// console.log(cubeState[2].id);
+		// console.log(cubeState[3].id);
+		// console.log(cubeState[4].id);
+		// console.log(cubeState[5].id);
+		// console.log(cubeState[6].id);
+		// console.log(cubeState[7].id);
+		// console.log(cubeState[8].id);
+		// console.log(cubeState[9].id);
+		// console.log(cubeState[10].id);
+		// console.log(cubeState[11].id);
+		// console.log(cubeState[12].id);
+		// console.log(cubeState[13].id);
+		// console.log(cubeState[14].id);
+		// console.log(cubeState[15].id);
+		// console.log(cubeState[16].id);
+		// console.log(cubeState[17].id);
+		// console.log(cubeState[18].id);
+		// console.log(cubeState[19].id);
+		// console.log(cubeState[20].id);
+		// console.log(cubeState[21].id);
+		// console.log(cubeState[22].id);
+		// console.log(cubeState[23].id);
+		// console.log(cubeState[24].id);
+		// console.log(cubeState[25].id);
+		// console.log(cubeState[26].id);
+		// console.log(cubeState[27].id);
 		// CUBES!---------------------------------------------------------------
 
 		renderer = new THREE.CanvasRenderer();
@@ -924,35 +957,35 @@ function getFace(event){
 		rotateMovement(moveNum);
 		cubeSwapper(movements[moveNum]);
 		faceSwapper(facements[moveNum]);
-console.log('cubestate');
-// console.log(cubeState);
-console.log(cubeState[1].id);
-console.log(cubeState[2].id);
-console.log(cubeState[3].id);
-console.log(cubeState[4].id);
-console.log(cubeState[5].id);
-console.log(cubeState[6].id);
-console.log(cubeState[7].id);
-console.log(cubeState[8].id);
-console.log(cubeState[9].id);
-console.log(cubeState[10].id);
-console.log(cubeState[11].id);
-console.log(cubeState[12].id);
-console.log(cubeState[13].id);
-console.log(cubeState[14].id);
-console.log(cubeState[15].id);
-console.log(cubeState[16].id);
-console.log(cubeState[17].id);
-console.log(cubeState[18].id);
-console.log(cubeState[19].id);
-console.log(cubeState[20].id);
-console.log(cubeState[21].id);
-console.log(cubeState[22].id);
-console.log(cubeState[23].id);
-console.log(cubeState[24].id);
-console.log(cubeState[25].id);
-console.log(cubeState[26].id);
-console.log(cubeState[27].id);
+// console.log('cubestate');
+// // console.log(cubeState);
+// console.log(cubeState[1].id);
+// console.log(cubeState[2].id);
+// console.log(cubeState[3].id);
+// console.log(cubeState[4].id);
+// console.log(cubeState[5].id);
+// console.log(cubeState[6].id);
+// console.log(cubeState[7].id);
+// console.log(cubeState[8].id);
+// console.log(cubeState[9].id);
+// console.log(cubeState[10].id);
+// console.log(cubeState[11].id);
+// console.log(cubeState[12].id);
+// console.log(cubeState[13].id);
+// console.log(cubeState[14].id);
+// console.log(cubeState[15].id);
+// console.log(cubeState[16].id);
+// console.log(cubeState[17].id);
+// console.log(cubeState[18].id);
+// console.log(cubeState[19].id);
+// console.log(cubeState[20].id);
+// console.log(cubeState[21].id);
+// console.log(cubeState[22].id);
+// console.log(cubeState[23].id);
+// console.log(cubeState[24].id);
+// console.log(cubeState[25].id);
+// console.log(cubeState[26].id);
+// console.log(cubeState[27].id);
 }
 
 function rotateMovement(numMove){
@@ -967,7 +1000,7 @@ function rotateMovement(numMove){
 function rotateX(numMove){
 	var pi = direction[numMove];
 	var hsh = movements[numMove];
-	var k = Object.values(hsh);
+	var k = Object.keys(hsh);
 	// debugger
 	cubeState[k[0]].rotateX(pi);
 	cubeState[k[1]].rotateX(pi);
@@ -978,13 +1011,13 @@ function rotateX(numMove){
 	cubeState[k[6]].rotateX(pi);
 	cubeState[k[7]].rotateX(pi);
 	cubeState[k[8]].rotateX(pi);
-
-
 }
+
 function rotateY(numMove){
 	var pi = direction[numMove];
 	var hsh = movements[numMove];
-	var k = Object.values(hsh);
+	var k = Object.keys(hsh);
+	// debugger
 	cubeState[k[0]].rotateY(pi);
 	cubeState[k[1]].rotateY(pi);
 	cubeState[k[2]].rotateY(pi);
@@ -998,7 +1031,7 @@ function rotateY(numMove){
 function rotateZ(numMove){
 	var pi = direction[numMove];
 	var hsh = movements[numMove];
-	var k = Object.values(hsh);
+	var k = Object.keys(hsh);
 	cubeState[k[0]].rotateZ(pi);
 	cubeState[k[1]].rotateZ(pi);
 	cubeState[k[2]].rotateZ(pi);
@@ -1026,33 +1059,33 @@ function cubeSwapper(hsh){
 	cubeState = cSD;
 
 
-	console.log(cubeState[1].id);
-	console.log(cubeState[2].id);
-	console.log(cubeState[3].id);
-	console.log(cubeState[4].id);
-	console.log(cubeState[5].id);
-	console.log(cubeState[6].id);
-	console.log(cubeState[7].id);
-	console.log(cubeState[8].id);
-	console.log(cubeState[9].id);
-	console.log(cubeState[10].id);
-	console.log(cubeState[11].id);
-	console.log(cubeState[12].id);
-	console.log(cubeState[13].id);
-	console.log(cubeState[14].id);
-	console.log(cubeState[15].id);
-	console.log(cubeState[16].id);
-	console.log(cubeState[17].id);
-	console.log(cubeState[18].id);
-	console.log(cubeState[19].id);
-	console.log(cubeState[20].id);
-	console.log(cubeState[21].id);
-	console.log(cubeState[22].id);
-	console.log(cubeState[23].id);
-	console.log(cubeState[24].id);
-	console.log(cubeState[25].id);
-	console.log(cubeState[26].id);
-	console.log(cubeState[27].id);
+	// console.log(cubeState[1].id);
+	// console.log(cubeState[2].id);
+	// console.log(cubeState[3].id);
+	// console.log(cubeState[4].id);
+	// console.log(cubeState[5].id);
+	// console.log(cubeState[6].id);
+	// console.log(cubeState[7].id);
+	// console.log(cubeState[8].id);
+	// console.log(cubeState[9].id);
+	// console.log(cubeState[10].id);
+	// console.log(cubeState[11].id);
+	// console.log(cubeState[12].id);
+	// console.log(cubeState[13].id);
+	// console.log(cubeState[14].id);
+	// console.log(cubeState[15].id);
+	// console.log(cubeState[16].id);
+	// console.log(cubeState[17].id);
+	// console.log(cubeState[18].id);
+	// console.log(cubeState[19].id);
+	// console.log(cubeState[20].id);
+	// console.log(cubeState[21].id);
+	// console.log(cubeState[22].id);
+	// console.log(cubeState[23].id);
+	// console.log(cubeState[24].id);
+	// console.log(cubeState[25].id);
+	// console.log(cubeState[26].id);
+	// console.log(cubeState[27].id);
 }
 
 
