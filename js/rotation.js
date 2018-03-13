@@ -20,7 +20,8 @@ RubiksCube.RotationWithQuaternion = (function() {
 //*******************
 
 
-	var facesSTATE;
+	var faceState;
+	var movements, facements;
 	var face1, face3, face4, face6, face7, face9, face10, face12, face14, face15, face16, face17;
 	var faceToMovement, faceToCube, cubeToFace;
 	var container;
@@ -473,6 +474,117 @@ RubiksCube.RotationWithQuaternion = (function() {
 			27: cube27
 		};
 
+		faceState = {
+			0:0,
+			1:1,
+			2:2,
+			3:3,
+			4:4,
+			5:5,
+			6:6,
+			7:7,
+			8:8,
+			9:9,
+			10:10,
+			11:11,
+			12:12,
+			13:13,
+			14:14,
+			15:15,
+			16:16,
+			17:17,
+			18:18,
+			19:19,
+			20:20,
+			21:21,
+			22:22,
+			23:23,
+			24:24,
+			25:25,
+			26:26,
+			27:27,
+			28:28,
+			29:29,
+			30:30,
+			31:31,
+			32:32,
+			33:33,
+			34:34,
+			35:35,
+			36:36,
+			37:37,
+			38:38,
+			39:39,
+			40:40,
+			41:41,
+			42:42,
+			43:43,
+			44:44,
+			45:45,
+			46:46,
+			47:47,
+			48:48,
+			49:49,
+			50:50,
+			51:51,
+			52:52,
+			53:53,
+			54:54,
+			55:55,
+			56:56,
+			57:57,
+			58:58,
+			59:59,
+			60:60,
+			61:61,
+			62:62,
+			63:63,
+			64:64,
+			65:65,
+			66:66,
+			67:67,
+			68:68,
+			69:69,
+			70:70,
+			71:71,
+			72:72,
+			73:73,
+			74:74,
+			75:75,
+			76:76,
+			77:77,
+			78:78,
+			79:79,
+			80:80,
+			81:81,
+			82:82,
+			83:83,
+			84:84,
+			85:85,
+			86:86,
+			87:87,
+			88:88,
+			89:89,
+			90:90,
+			91:91,
+			92:92,
+			93:93,
+			94:94,
+			95:95,
+			96:96,
+			97:97,
+			98:98,
+			99:99,
+			100:100,
+			101:101,
+			102:102,
+			103:103,
+			104:104,
+			105:105,
+			106:106,
+			107:107,
+		}
+
 		faceToMovement = {
 		  0:14, 1:14, 2:16,
 		  3:16, 4:12, 5:12,
@@ -583,6 +695,8 @@ RubiksCube.RotationWithQuaternion = (function() {
 		};
 
 			//movements  THEORY is 1 moves to 3 (goes to)
+
+		movements = { 1:move1, 3:move3, 4:move4, 6:move6, 7:move7, 9:move9, 10:move10, 12:move12, 14:move14, 15:move15, 16:move16, 17:move17 }
 		move1    = {  1:3,  2:6,  3:9,  4:2,  5:5,  6:8,  7:1,  8:4,  9:7  };
 			move3  = {  10:16,  11:13,  12:10,  13:17,  14:14,  15:11,  16:18,  17:15,  18:13  };
 			move4  = {  10:13,  11:15,  12:18,  13:11,  14:14,  15:17,  16:10,  17:13,  18:16  };
@@ -598,7 +712,9 @@ RubiksCube.RotationWithQuaternion = (function() {
 
 
 			//faceMap
-			face1 = { 40:103, 41:102, 46:97, 47:96, 52:91, 53:90, 76:40, 77:41, 82:46, 83:47, 88:52, 89:53, 58:76, 59:77, 64:82, 65:83, 70:88, 71:89, 103:58, 102:59, 97:64, 96:65, 91:70, 90:71, 0:4, 1:5, 2:10, 3:11, 4:16, 5:17, 6:2, 7:3, 8:8, 9:9, 10:14, 11:15, 12:0, 13:1, 14:6, 15:7, 16:12, 17:13 };
+
+		facements = { 1:face1, 3:face3, 4:face4, 6:face6, 7:face7, 9:face9, 10:face10, 12:face12, 14:face14, 15:face15, 16:face16, 17:face17 }
+		face1 = { 40:103, 41:102, 46:97, 47:96, 52:91, 53:90, 76:40, 77:41, 82:46, 83:47, 88:52, 89:53, 58:76, 59:77, 64:82, 65:83, 70:88, 71:89, 103:58, 102:59, 97:64, 96:65, 91:70, 90:71, 0:4, 1:5, 2:10, 3:11, 4:16, 5:17, 6:2, 7:3, 8:8, 9:9, 10:14, 11:15, 12:0, 13:1, 14:6, 15:7, 16:12, 17:13 };
 			face3 = { 38:74, 39:75, 44:80, 45:81, 50:86, 51:87, 74:56, 75:57, 80:62, 81:63, 86:68, 87:69, 56:105, 57:104, 62:99, 63:98, 68:93, 69:92, 105:38, 104:39, 99:44, 98:45, 93:50, 92:51 };
 			face4 = { 38:105, 39:104, 44:99, 45:98, 50:93, 51:92, 74:38, 75:39, 80:44, 81:45, 86:50, 87:51, 56:74, 57:75, 62:80, 63:81, 68:86, 69:87, 105:56, 104:57, 99:62, 98:63, 93:68, 92:69 };
 			face6 = { 36:72, 37:73, 42:78, 43:79, 48:84, 49:85, 72:54, 73:55, 78:60, 79:61, 84:66, 85:67, 54:107, 55:106, 60:101, 61:100, 66:95, 67:94, 107:36, 106:37, 101:42, 100:43, 95:48, 94:49, 18:22, 19:23, 20:28, 21:29, 22:34, 23:35, 24:20, 25:21, 26:26, 27:27, 28:32, 29:33, 30:18, 31:19, 32:24, 33:25, 34:30, 35:31 };
@@ -699,55 +815,55 @@ function getFace(event){
 		vector.unproject(camera);
 		ray.setFromCamera(mouse, camera);
 		var intersects = ray.intersectObjects( scene.children );
-		var selectedCube, selectedFace, selectedPoint;
+		var physicalFace, globalFace, moveNum;
 
 		// console.log(intersects);
 		if ( intersects.length > 0 ) {
-			for(var i = 0; i < intersects.length; i++)
+			for(var i = 0; i < intersects.length; i++){
 				if (intersects[i].face.materialIndex > 0) {
-					selectedCube = intersects[i].object;
-					selectedFace = intersects[i].faceIndex;
-					selectedPoint = intersects[i].point;
+					physicalFace = intersects[i].faceIndex;
+					break;
+				}
 			}
 		}
 
-		// console.log(selectedCube);
-		// console.log(selectedFace);
-		// console.log(cubeState);
-		console.log(selectedFace);
+		globalFace = faceState[physicalFace];
+		moveNum = faceToMovement[globalFace];
 
-		var myCubeNum = faceToCube[selectedFace];
-
-
-
-		determineRotationType(selectedCube, selectedFace);
-		// finds the correct plane to
-
-		// var center1 = getWorldPosition(cube1,[26, 27]);
-		// var center2 = getWorldPosition(cube0,[8, 9]);
-		// var vP = new THREE.Vector3(selectedPoint.x, selectedPoint.y, selectedPoint.z);
-		// var v1 = new THREE.Vector3(center1.x, center1.y, center1.z);
-		// var v2 = new THREE.Vector3(center2.x, center2.y, center2.z);
-		// var dist1 = vP.distanceTo(v1);
-		// var dist2 = vP.distanceTo(v2);
-    //
-		// console.log("cube1", dist1)
-		// console.log("cube0", dist2);;
-
-		//call rotate
-}
-
-function determineRotationType(cube, face){
-	var cubeOfRotation = closestPlane(cube, face);
+		rotateMovement(moveNum);
+		cubeSwapper(movements[moveNum]);
+		faceSwapper(facements[moveNum]);
 
 }
 
-function closestPlane(cube, face){
-	var cubeNum = cubeState[cube];
+function rotateMovement(numMove){
 
 }
+
+function rotateX(numMove){
+
+}
+function rotateY(numMove){
+
+}
+function rotateZ(numMove){
+
+}
+
 
 function cubeSwapper(hsh){
+	// THEORY 1 goes to 3 (3 becomes 1)
+	//  {  1:3,  2:6,  3:9,  4:2,  5:5,  6:8,  7:1,  8:4,  9:7  }
+	var keys = Object.keys(hsh);
+	var v = keys[0]
+	for (var i = 0; i<keys.length; i++){
+
+	}
+
+}
+function faceSwapper(hsh){
+	//  THEORY 40 becomes 103
+	// { 40:103, 41:102, 46:97, 47:96, 52:91, 53:90, 76:40, 77:41, 82:46, 83:47, 88:52, 89:53, 58:76, 59:77, 64:82, 65:83, 70:88, 71:89, 103:58, 102:59, 97:64, 96:65, 91:70, 90:71, 0:4, 1:5, 2:10, 3:11, 4:16, 5:17, 6:2, 7:3, 8:8, 9:9, 10:14, 11:15, 12:0, 13:1, 14:6, 15:7, 16:12, 17:13 };
 	var keys = Object.keys(hsh);
 	var v = keys[0]
 	for (var i = 0; i<keys.length; i++){
