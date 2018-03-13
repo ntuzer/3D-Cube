@@ -33,6 +33,7 @@ RubiksCube.RotationWithQuaternion = (function() {
 			cube18, cube19, cube20,
 			cube21, cube22, cube23,
 			cube24, cube25, cube26, cube27;
+	var move1, move3, move4, move6, move7, move9, move10, move12, move14, move15, move16, move17;
 	var mouseDown = false;
 	var mouse = new THREE.Vector2();
 	var rotateStartPoint = new THREE.Vector3(0, 0, 1);
@@ -484,39 +485,17 @@ RubiksCube.RotationWithQuaternion = (function() {
 		  27:99, 28:10, 29:10,
 		  30:7, 31:7, 32:16,
 			33:16, 34:14, 35:14,
-		  36:6,
-		  37:6,
-		  38:3,
-		  39:3,
-		  40:17,
-		  41:17,
-		  42:16,
-		  43:16,
-		  44:99,
-		  45:99,
-		  46:15,
-		  47:15,
-		  48:14,
-		  49:14,
-		  50:4,
-		  51:4,
-		  52:1,
-		  53:1,
-		  54:6,
-		  55:6,
-		  56:3,
-		  57:3,
-		  58:14,
-		  59:14,
-		  60:15,
-		  61:15,
-		  62:99,
-		  63:99,
-		  64:16,
-		  65:16,
-		  66:17,
-		  67:17,
-		  68:4,
+		  36:6, 37:6, 38:3,
+		  39:3, 40:17, 41:17,
+		  42:16, 43:16, 44:99,
+		  45:99, 46:15, 47:15,
+		  48:14, 49:14, 50:4,
+		  51:4, 52:1, 53:1,
+		  54:6, 55:6, 56:3,
+		  57:3, 58:14, 59:14,
+		  60:15, 61:15, 62:99,
+			63:99, 64:16, 65:16,
+		  66:17, 67:17, 68:4,
 		  69:4,
 		  70:1,
 		  71:1,
@@ -556,7 +535,7 @@ RubiksCube.RotationWithQuaternion = (function() {
 		  105:3,
 		  106:6,
 		  107:6,
-		}
+		};
 
 		faceToCube = {
 			0:7, 1:7, 2:8, 3:8, 4:9, 5:9, 6:4, 7:4, 8:5, 9:5, 10:6, 11:6, 12:1,
@@ -603,18 +582,18 @@ RubiksCube.RotationWithQuaternion = (function() {
 		};
 
 			//movements
-		move1    = {  1:3,  2:6,  3:9,  4:2,  5:5,  6:8,  7:1,  8:4,  9:7  }
-			move3  = {  10:16,  11:13,  12:10,  13:17,  14:14,  15:11,  16:18,  17:15,  18:13  }
-			move4  = {  10:13,  11:15,  12:18,  13:11,  14:14,  15:17,  16:10,  17:13,  18:16  }
-			move6  = {  19:25,  20:22,  21:19,  22:26,  23:23,  24:20,  25:27,  26:24,  27:21  }
-			move7  = {  1:19,  2:10,  3:1,  10:20,  11:11,  12:2,  19:21,  20:12,  21:3  }
-			move9  = {  4:22,  5:13,  6:4,  13:23,  14:14,  15:5,  22:24,  23:15,  24:6  }
-			move10 = {  4;6,  5;15,  6;24,  13;5,  14;14,  15;23,  22;4,  23;13,  24;22  }
-			move12 = {  7;9,  8;18,  9;27,  16;8,  17;17,  18;26,  25;7,  26;16,  27;25  }
-			move14 = {  1;7,  4;16,  7;25,  10;4,  13;13,  16;22,  19;1,  22;10,  25;19  }
-			move15 = {  2;20,  5;11,  8;2,  11;23,  14;14,  17;5,  20;26,  23;17,  26;8  }
-			move16 = {  2;8,  5;17,  8;26,  11;5,  14;14,  17;23,  20;2,  23;11,  26;20  }
-			move17 = {  3;21,  6;12,  9;3,  12;24,  15;15,  18;6,  21;27,  24;18,  27;9  }
+		move1    = {  1:3,  2:6,  3:9,  4:2,  5:5,  6:8,  7:1,  8:4,  9:7  };
+			move3  = {  10:16,  11:13,  12:10,  13:17,  14:14,  15:11,  16:18,  17:15,  18:13  };
+			move4  = {  10:13,  11:15,  12:18,  13:11,  14:14,  15:17,  16:10,  17:13,  18:16  };
+			move6  = {  19:25,  20:22,  21:19,  22:26,  23:23,  24:20,  25:27,  26:24,  27:21  };
+			move7  = {  1:19,  2:10,  3:1,  10:20,  11:11,  12:2,  19:21,  20:12,  21:3  };
+			move9  = {  4:22,  5:13,  6:4,  13:23,  14:14,  15:5,  22:24,  23:15,  24:6  };
+			move10 = {  4:6,  5:15,  6:24,  13:5,  14:14,  15:23,  22:4,  23:13,  24:22  };
+			move12 = {  7:9,  8:18,  9:27,  16:8,  17:17,  18:26,  25:7,  26:16,  27:25  };
+			move14 = {  1:7,  4:16,  7:25,  10:4,  13:13,  16:22,  19:1,  22:10,  25:19  };
+			move15 = {  2:20,  5:11,  8:2,  11:23,  14:14,  17:5,  20:26,  23:17,  26:8  };
+			move16 = {  2:8,  5:17,  8:26,  11:5,  14:14,  17:23,  20:2,  23:11,  26:20  };
+			move17 = {  3:21,  6:12,  9:3,  12:24,  15:15,  18:6,  21:27,  24:18,  27:9  };
 
 		// CUBES!---------------------------------------------------------------
 
@@ -623,7 +602,6 @@ RubiksCube.RotationWithQuaternion = (function() {
 		renderer.setSize(700, 700);
 		document.getElementsByTagName('section')[0].appendChild(renderer.domElement);
 		// var canvas = document.getElementsByTagName('canvas')[0];
-		console.log(document.getElementsByTagName('canvas')[0]);
 		document.getElementsByTagName('canvas')[0].addEventListener('mousedown', onDocumentMouseDown, false);
 		document.getElementsByTagName('canvas')[0].addEventListener('contextmenu', getFace, false);
 		button.addEventListener('click',() => {
@@ -706,7 +684,7 @@ function getFace(event){
 		var intersects = ray.intersectObjects( scene.children );
 		var selectedCube, selectedFace, selectedPoint;
 
-		console.log(intersects);
+		// console.log(intersects);
 		if ( intersects.length > 0 ) {
 			for(var i = 0; i < intersects.length; i++)
 				if (intersects[i].face.materialIndex > 0) {
@@ -716,10 +694,10 @@ function getFace(event){
 			}
 		}
 
-		console.log(selectedCube);
-		console.log(selectedFace);
-		console.log(cubeState);
-		console.log(faceToCube[selectedFace]);
+		// console.log(selectedCube);
+		// console.log(selectedFace);
+		// console.log(cubeState);
+		console.log(faceToMovement[selectedFace]);
 
 		var myCubeNum = faceToCube[selectedFace];
 
@@ -751,6 +729,9 @@ function closestPlane(cube, face){
 	var cubeNum = cubeState[cube];
 
 }
+
+
+
 
 function getWorldPosition(cubo, faces){
 	var norm = new THREE.Matrix3().getNormalMatrix( cubo.matrixWorld );
