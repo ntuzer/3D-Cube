@@ -135,17 +135,17 @@ RubiksCube.RotationWithQuaternion = (function() {
 		// info.innerHTML = '3D - cube0';
 		// document.body.appendChild(info);
 
-		var button = document.createElement('div');
-		button.innerHTML = 'Rotate X'
-		button.style.border = '1px solid black'
-		button.style.padding = '10px';
-		button.style.width = '70px';
-		button.style.height = '20px';
-		button.style.borderRadius = '6px';
-		button.style.cursor = 'pointer';
-		button.style.className = "button";
-		button.style.background = 'lightgrey';
-		container.appendChild(button);
+		// var button = document.createElement('div');
+		// button.innerHTML = 'Rotate X'
+		// button.style.border = '1px solid black'
+		// button.style.padding = '10px';
+		// button.style.width = '70px';
+		// button.style.height = '20px';
+		// button.style.borderRadius = '6px';
+		// button.style.cursor = 'pointer';
+		// button.style.className = "button";
+		// button.style.background = 'lightgrey';
+		// container.appendChild(button);
 
 		camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 		camera.position.y = 50;
