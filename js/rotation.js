@@ -837,11 +837,17 @@ function getFace(event){
 }
 
 function rotateMovement(numMove){
-
+	if(numMove <= 6){
+		rotateX(numMove);
+	}else if (numMove <= 12) {
+		rotateY(numMove);
+	}else if (numMove <= 17) {
+		rotateZ(numMove);
+	}
 }
 
 function rotateX(numMove){
-
+	move
 }
 function rotateY(numMove){
 
