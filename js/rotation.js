@@ -854,7 +854,7 @@ RubiksCube.RotationWithQuaternion = (function() {
 
 		renderer = new THREE.CanvasRenderer();
 		renderer.setClearColor(0xfffff); //BACKGROUND COLOR
-		renderer.setSize(700, 700);
+		renderer.setSize(1000, 800);
 		document.getElementsByTagName('section')[0].appendChild(renderer.domElement);
 		// var canvas = document.getElementsByTagName('canvas')[0];
 		document.getElementsByTagName('canvas')[0].addEventListener('mousedown', onDocumentMouseDown, false);
@@ -1051,11 +1051,12 @@ function cubeSwapper(hsh){
 	Object.keys(cubeState).forEach(function(ky) {
 	     cSD[ ky ] = cubeState[ ky ];
 	});
-	// debugger
+	debugger
 	for (var i = 0; i<keyz.length; i++){
 		cSD[keyz[i]] = cubeState[hsh[keyz[i]]];
 		// v = hsh[v];
 	}
+
 	cubeState = cSD;
 
 
