@@ -16,14 +16,14 @@ RubiksCube.RotationWithQuaternion = (function() {
 	'use_strict';
 
 //*******************
-	var cubeState;  //*
+	var globalCubeState;  //*
 //*******************
 
 
-	var faceState, xyzState, cubeRef;
+	var globalFaceState, xyzState, cubeRef;
 	var movements, facements;
 	var face1, face3, face4, face6, face7, face9, face10, face12, face14, face15, face16, face17;
-	var faceToMovement, faceToCube, cubeToFace;
+	var faceToMovement, globalFaceToCube, cubeToFace;
 	var direction;
 	var container;
 	var camera, scene, renderer;
@@ -91,36 +91,6 @@ RubiksCube.RotationWithQuaternion = (function() {
 
 	var setup = function() {
 
-		// facesSTATE = {1:[12, 13, 88, 89, 58, 59],
-		// 						  2:[14, 15, 64, 65],
-		// 						  3:[16, 17, 70, 71, 102, 103],
-		// 						  4:[6, 7, 82, 83],
-		// 						  5:[8, 9],
-		// 						  6:[10, 11, 96, 97],
-		// 						  7:[0, 1, 76, 77, 52, 53],
-		// 						  8:[2, 3, 46, 47],
-		// 						  9:[4, 5, 40, 41, 90, 91],
-		// 						  10:[86, 87, 56, 57],
-		// 						  11:[62, 63],
-		// 						  12:[68, 69, 104, 105],
-		// 						  13:[80, 81],
-		// 						  14:[],
-		// 						  15:[98, 99],
-		// 						  16:[74, 75, 50, 51],
-		// 						  17:[44, 45],
-		// 						  18:[38, 39, 92, 93],
-		// 						  19:[34, 35, 54, 55, 84, 85],
-		// 						  20:[32, 33, 60, 61],
-		// 						  21:[30, 31, 66, 67, 106, 107],
-		// 						  22:[28, 29, 78, 79],
-		// 						  23:[26, 27],
-		// 						  24:[24, 25, 100, 101],
-		// 						  25:[22, 23, 48, 49, 72, 73],
-		// 						  26:[20, 21, 42, 43],
-		// 						  27:[18, 19, 36, 37, 94, 95]
-		// 						};
-
-
 		container = document.createElement('div');
 		container.style.display = 'flex';
 		container.style.alignItems = 'center';
@@ -135,17 +105,39 @@ RubiksCube.RotationWithQuaternion = (function() {
 		// info.innerHTML = '3D - cube0';
 		// document.body.appendChild(info);
 
-		// var button = document.createElement('div');
-		// button.innerHTML = 'Rotate X'
-		// button.style.border = '1px solid black'
-		// button.style.padding = '10px';
-		// button.style.width = '70px';
-		// button.style.height = '20px';
-		// button.style.borderRadius = '6px';
-		// button.style.cursor = 'pointer';
-		// button.style.className = "button";
-		// button.style.background = 'lightgrey';
-		// container.appendChild(button);
+		var button = document.createElement('div');
+		button.innerHTML = 'Rotate X'
+		button.style.border = '1px solid black'
+		button.style.padding = '10px';
+		button.style.width = '70px';
+		button.style.height = '20px';
+		button.style.borderRadius = '6px';
+		button.style.cursor = 'pointer';
+		button.style.className = "button";
+		button.style.background = 'lightgrey';
+		container.appendChild(button);
+		var button1 = document.createElement('div');
+		button1.innerHTML = 'Rotate Y'
+		button1.style.border = '1px solid black'
+		button1.style.padding = '10px';
+		button1.style.width = '70px';
+		button1.style.height = '20px';
+		button1.style.borderRadius = '6px';
+		button1.style.cursor = 'pointer';
+		button1.style.className = "button";
+		button1.style.background = 'lightgrey';
+		container.appendChild(button1);
+		var button2 = document.createElement('div');
+		button2.innerHTML = 'Rotate Z'
+		button2.style.border = '1px solid black'
+		button2.style.padding = '10px';
+		button2.style.width = '70px';
+		button2.style.height = '20px';
+		button2.style.borderRadius = '6px';
+		button2.style.cursor = 'pointer';
+		button2.style.className = "button";
+		button2.style.background = 'lightgrey';
+		container.appendChild(button2);
 
 		camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 		camera.position.y = 50;
@@ -160,7 +152,7 @@ RubiksCube.RotationWithQuaternion = (function() {
 			vertexColors: THREE.FaceColors,
 			overdraw: 1,
 			transparent: true,
-			opacity: 0
+			opacity: 0.0
 		});
 		var white = new THREE.MeshBasicMaterial({
 			overdraw: 1,
@@ -311,7 +303,7 @@ RubiksCube.RotationWithQuaternion = (function() {
 											27: boxGeometry27
 										};
 
-		for(var i = 1; i < 28; i++) {
+		for(i = 1; i < 28; i++) {
 			let keys = Object.keys(faceColorKey[i]);
 			for(var j = 0; j < keys.length; j++){
 				listBoxes[i].faces[keys[j]].materialIndex = faceColorKey[i][keys[j]];
@@ -468,27 +460,27 @@ RubiksCube.RotationWithQuaternion = (function() {
 			scene.add(cube7);
 			scene.add(cube8);
 			scene.add(cube9);
-			// scene.add(cube10);
-			// scene.add(cube11);
-			// scene.add(cube12);
-			// scene.add(cube13);
-			// scene.add(cube14);
-			// scene.add(cube15);
-			// scene.add(cube16);
-			// scene.add(cube17);
-			// scene.add(cube18);
-			// scene.add(cube19);
-			// scene.add(cube20);
-			// scene.add(cube21);
-			// scene.add(cube22);
-			// scene.add(cube23);
-			// scene.add(cube24);
-			// scene.add(cube25);
-			// scene.add(cube26);
-			// scene.add(cube27);
+			scene.add(cube10);
+			scene.add(cube11);
+			scene.add(cube12);
+			scene.add(cube13);
+			scene.add(cube14);
+			scene.add(cube15);
+			scene.add(cube16);
+			scene.add(cube17);
+			scene.add(cube18);
+			scene.add(cube19);
+			scene.add(cube20);
+			scene.add(cube21);
+			scene.add(cube22);
+			scene.add(cube23);
+			scene.add(cube24);
+			scene.add(cube25);
+			scene.add(cube26);
+			scene.add(cube27);
 
 
-		cubeState = {
+		globalCubeState = {
 			 1: cube1,   2: cube2,
 			 3: cube3,   4: cube4,
 			 5: cube5,   6: cube6,
@@ -522,7 +514,7 @@ RubiksCube.RotationWithQuaternion = (function() {
 			27: cube27
 		};
 
-		faceState = {
+		globalFaceState = {
 			0:0,
 			1:1,
 			2:2,
@@ -634,71 +626,68 @@ RubiksCube.RotationWithQuaternion = (function() {
 		};
 
 		faceToMovement = {
-		  0:14, 1:14, 2:16,
-		  3:16, 4:12, 5:12,
-		  6:9, 7:9, 8:99,
-		  9:99, 10:10, 11:10,
-		  12:7, 13:7, 14:15,
-		  15:15, 16:17, 17:17,
-		  18:17, 19:17, 20:15,
-		  21:15, 22:12, 23:12,
-		  24:9, 25:9, 26:99,
-		  27:99, 28:10, 29:10,
-		  30:7, 31:7, 32:16,
-			33:16, 34:14, 35:14,
-		  36:6, 37:6, 38:3,
-		  39:3, 40:17, 41:17,
-		  42:16, 43:16, 44:99,
-		  45:99, 46:15, 47:15,
-		  48:14, 49:14, 50:4,
-		  51:4, 52:1, 53:1,
-		  54:6, 55:6, 56:3,
-		  57:3, 58:14, 59:14,
-		  60:15, 61:15, 62:99,
-			63:99, 64:16, 65:16,
-		  66:17, 67:17, 68:4,
-		  69:4,
-		  70:1,
-		  71:1,
-		  72:6,
-		  73:6,
-		  74:3,
-		  75:3,
-		  76:12,
-		  77:12,
-		  78:9,
-		  79:9,
-		  80:99,
-		  81:99,
-		  82:10,
-		  83:10,
-		  84:7,
-		  85:7,
-		  86:4,
-		  87:4,
-		  88:1,
-		  89:1,
-		  90:1,
-		  91:1,
-		  92:4,
-		  93:4,
-		  94:12,
-		  95:12,
-		  96:9,
-		  97:9,
-		  98:99,
-		  99:99,
-		  100:10,
-		  101:10,
-		  102:7,
-		  103:7,
-		  104:3,
-		  105:3,
-		  106:6,
-		  107:6,
+		  0:14, 1:14,
+			2:16, 3:16,
+			4:12, 5:12,
+		  6:9, 7:9,
+			8:99, 9:99,
+			10:10, 11:10,
+		  12:7, 13:7,
+			14:15, 15:15,
+			16:17, 17:17,
+
+		  18:17, 19:17,
+			20:15, 21:15,
+			22:12, 23:12,
+		  24:9, 25:9,
+			26:99, 27:99,
+			28:10, 29:10,
+		  30:7, 31:7,
+			32:16, 33:16,
+			34:14, 35:14,
+
+		  36:6, 37:6,
+			38:3, 39:3,
+			40:17, 41:17,
+		  42:16, 43:16,
+			44:99, 45:99,
+			46:15, 47:15,
+		  48:14, 49:14,
+			50:4, 51:4,
+			52:1, 53:1,
+
+		  54:6, 55:6,
+			56:3, 57:3,
+			58:14, 59:14,
+		  60:15, 61:15,
+			62:99, 63:99,
+			64:16, 65:16,
+		  66:17, 67:17,
+			68:4, 69:4,
+		  70:1, 71:1,
+
+		  72:6, 73:6,
+		  74:3, 75:3,
+		  76:12, 77:12,
+		  78:9, 79:9,
+		  80:99, 81:99,
+		  82:10, 83:10,
+		  84:7, 85:7,
+		  86:4, 87:4,
+		  88:1, 89:1,
+
+		  90:1, 91:1,
+		  92:4, 93:4,
+		  94:12, 95:12,
+		  96:9, 97:9,
+		  98:99, 99:99,
+		  100:10, 101:10,
+		  102:7, 103:7,
+		  104:3, 105:3,
+		  106:6, 107:6,
 		};
 
-		faceToCube = {
+		globalFaceToCube = {
 			0:7, 1:7, 2:8, 3:8, 4:9, 5:9, 6:4, 7:4, 8:5, 9:5, 10:6, 11:6, 12:1,
 			13:1, 14:2, 15:2, 16:3, 17:3, 18:27, 19:27, 20:26, 21:26, 22:25,
 			23:25, 24:24, 25:24, 26:23, 27:23, 28:22, 29:22, 30:21, 31:21,
@@ -743,14 +732,49 @@ RubiksCube.RotationWithQuaternion = (function() {
 		};
 
 		xyzState = {};
-		for(var i = 1; i <= 27; i++){
-			xyzState[cubeState[i].uuid] = {x: 'x', y: 'y', z: 'z'};
-		}
+
+		xyzState[globalCubeState[1].uuid] = {x: 'xp', y: 'yn', z: 'zp'},
+			xyzState[globalCubeState[2].uuid] = {x: 'xp', y: 'yn', z: 'zz'},
+			xyzState[globalCubeState[3].uuid] = {x: 'xp', y: 'yn', z: 'zn'},
+			xyzState[globalCubeState[4].uuid] = {x: 'xp', y: 'yz', z: 'zp'},
+			xyzState[globalCubeState[5].uuid] = {x: 'xp', y: 'yz', z: 'zz'},
+			xyzState[globalCubeState[6].uuid] = {x: 'xp', y: 'yz', z: 'zn'},
+			xyzState[globalCubeState[7].uuid] = {x: 'xp', y: 'yp', z: 'zp'},
+			xyzState[globalCubeState[8].uuid] = {x: 'xp', y: 'yp', z: 'zz'},
+			xyzState[globalCubeState[9].uuid] = {x: 'xp', y: 'yp', z: 'zn'},
+			xyzState[globalCubeState[10].uuid] = {x: 'xz', y: 'yn', z: 'zp'},
+			xyzState[globalCubeState[11].uuid] = {x: 'xz', y: 'yn', z: 'zz'},
+			xyzState[globalCubeState[12].uuid] = {x: 'xz', y: 'yn', z: 'zn'},
+			xyzState[globalCubeState[13].uuid] = {x: 'xz', y: 'yz', z: 'zp'},
+			xyzState[globalCubeState[14].uuid] = {x: 'xz', y: 'yz', z: 'zz'},
+			xyzState[globalCubeState[15].uuid] = {x: 'xz', y: 'yz', z: 'zn'},
+			xyzState[globalCubeState[16].uuid] = {x: 'xz', y: 'yp', z: 'zp'},
+			xyzState[globalCubeState[17].uuid] = {x: 'xz', y: 'yp', z: 'zz'},
+			xyzState[globalCubeState[18].uuid] = {x: 'xz', y: 'yp', z: 'zn'},
+			xyzState[globalCubeState[19].uuid] = {x: 'xn', y: 'yn', z: 'zp'},
+			xyzState[globalCubeState[20].uuid] = {x: 'xn', y: 'yn', z: 'zz'},
+			xyzState[globalCubeState[21].uuid] = {x: 'xn', y: 'yn', z: 'zn'},
+			xyzState[globalCubeState[22].uuid] = {x: 'xn', y: 'yz', z: 'zp'},
+			xyzState[globalCubeState[23].uuid] = {x: 'xn', y: 'yz', z: 'zz'},
+			xyzState[globalCubeState[24].uuid] = {x: 'xn', y: 'yz', z: 'zn'},
+			xyzState[globalCubeState[25].uuid] = {x: 'xn', y: 'yp', z: 'zp'},
+			xyzState[globalCubeState[26].uuid] = {x: 'xn', y: 'yp', z: 'zz'},
+			xyzState[globalCubeState[27].uuid] = {x: 'xn', y: 'yp', z: 'zn'},
+		// for(i = 1; i <= 27; i++){
+		//
+		// 	xyzState[globalCubeState[i].uuid] = {x: 'x', y: 'y', z: 'z'};
+		//
+		// }
+
 
 
 		//direction
 		var mathPi = Math.PI / 2;
-		direction = {1:mathPi, 3:-mathPi, 4:mathPi, 6:-mathPi, 7:-mathPi, 9:-mathPi, 10:mathPi, 12:mathPi, 14:mathPi, 15:-mathPi, 16:mathPi, 17:-mathPi};
+		direction = {
+			1:mathPi, 3:-mathPi, 4:mathPi, 6:-mathPi,
+			7:-mathPi, 9:-mathPi, 10:mathPi, 12:mathPi,
+			14:mathPi, 15:-mathPi, 16:mathPi, 17:-mathPi
+		};
 
 
 		move1    = {  3:1, 6:2, 9:3, 2:4, 5:5, 8:6, 1:7, 4:8, 7:9  };
@@ -773,7 +797,7 @@ RubiksCube.RotationWithQuaternion = (function() {
 		};
 
 			//faceMap
-
+			//THEORY global face at KEY BECOMES physical face that is stored at global VALUE location
 		face1 = { 40:103, 41:102, 46:97, 47:96, 52:91, 53:90, 76:40,
 			77:41, 82:46, 83:47, 88:52, 89:53, 58:76, 59:77, 64:82, 65:83,
 			70:88, 71:89, 103:58, 102:59, 97:64, 96:65, 91:70, 90:71, 0:4,
@@ -843,23 +867,283 @@ RubiksCube.RotationWithQuaternion = (function() {
 		// var canvas = document.getElementsByTagName('canvas')[0];
 		document.getElementsByTagName('canvas')[0].addEventListener('mousedown', onDocumentMouseDown, false);
 		document.getElementsByTagName('canvas')[0].addEventListener('contextmenu', getFace, false);
-		// button.addEventListener('click',() => {
-		// 	cube1.rotateZ(Math.PI / 2)
-		// 	cube4.rotateZ(Math.PI / 2)
-		// 	cube7.rotateZ(Math.PI / 2)
-		// 	cube10.rotateZ(Math.PI / 2)
-		// 	cube13.rotateZ(Math.PI / 2)
-		// 	cube16.rotateZ(Math.PI / 2)
-		// 	cube19.rotateZ(Math.PI / 2)
-		// 	cube22.rotateZ(Math.PI / 2)
-		// 	cube25.rotateZ(Math.PI / 2)
-		//
-		// });
-		// window.addEventListener('resize', onWindowResize, false);
+		button.addEventListener('click',() => {
+			cube1.rotateX(Math.PI / 2)
+			cube2.rotateY(Math.PI / 2)
+			cube3.rotateY(Math.PI / 2)
+			cube4.rotateY(Math.PI / 2)
+			cube5.rotateY(Math.PI / 2)
+			cube6.rotateY(Math.PI / 2)
+			cube7.rotateY(Math.PI / 2)
+			cube8.rotateY(Math.PI / 2)
+			cube9.rotateY(Math.PI / 2)
+			cube10.rotateY(Math.PI / 2)
+			cube11.rotateY(Math.PI / 2)
+			cube12.rotateY(Math.PI / 2)
+			cube13.rotateY(Math.PI / 2)
+			cube14.rotateY(Math.PI / 2)
+			cube15.rotateY(Math.PI / 2)
+			cube16.rotateY(Math.PI / 2)
+			cube17.rotateY(Math.PI / 2)
+			cube18.rotateY(Math.PI / 2)
+			cube19.rotateY(Math.PI / 2)
+			cube20.rotateY(Math.PI / 2)
+			cube21.rotateY(Math.PI / 2)
+			cube22.rotateY(Math.PI / 2)
+			cube23.rotateY(Math.PI / 2)
+			cube24.rotateY(Math.PI / 2)
+			cube25.rotateY(Math.PI / 2)
+			cube26.rotateY(Math.PI / 2)
+			cube27.rotateY(Math.PI / 2)
+
+		});
+		button1.addEventListener('click',() => {
+			cube1.rotateY(Math.PI / 2)
+			cube2.rotateY(Math.PI / 2)
+			cube3.rotateY(Math.PI / 2)
+			cube4.rotateY(Math.PI / 2)
+			cube5.rotateY(Math.PI / 2)
+			cube6.rotateY(Math.PI / 2)
+			cube7.rotateY(Math.PI / 2)
+			cube8.rotateY(Math.PI / 2)
+			cube9.rotateY(Math.PI / 2)
+			cube10.rotateY(Math.PI / 2)
+			cube11.rotateY(Math.PI / 2)
+			cube12.rotateY(Math.PI / 2)
+			cube13.rotateY(Math.PI / 2)
+			cube14.rotateY(Math.PI / 2)
+			cube15.rotateY(Math.PI / 2)
+			cube16.rotateY(Math.PI / 2)
+			cube17.rotateY(Math.PI / 2)
+			cube18.rotateY(Math.PI / 2)
+			cube19.rotateY(Math.PI / 2)
+			cube20.rotateY(Math.PI / 2)
+			cube21.rotateY(Math.PI / 2)
+			cube22.rotateY(Math.PI / 2)
+			cube23.rotateY(Math.PI / 2)
+			cube24.rotateY(Math.PI / 2)
+			cube25.rotateY(Math.PI / 2)
+			cube26.rotateY(Math.PI / 2)
+			cube27.rotateY(Math.PI / 2)
+
+		});
+		button2.addEventListener('click',() => {
+			cube1.rotateZ(Math.PI / 2)
+			cube2.rotateY(Math.PI / 2)
+			cube3.rotateY(Math.PI / 2)
+			cube4.rotateY(Math.PI / 2)
+			cube5.rotateY(Math.PI / 2)
+			cube6.rotateY(Math.PI / 2)
+			cube7.rotateY(Math.PI / 2)
+			cube8.rotateY(Math.PI / 2)
+			cube9.rotateY(Math.PI / 2)
+			cube10.rotateY(Math.PI / 2)
+			cube11.rotateY(Math.PI / 2)
+			cube12.rotateY(Math.PI / 2)
+			cube13.rotateY(Math.PI / 2)
+			cube14.rotateY(Math.PI / 2)
+			cube15.rotateY(Math.PI / 2)
+			cube16.rotateY(Math.PI / 2)
+			cube17.rotateY(Math.PI / 2)
+			cube18.rotateY(Math.PI / 2)
+			cube19.rotateY(Math.PI / 2)
+			cube20.rotateY(Math.PI / 2)
+			cube21.rotateY(Math.PI / 2)
+			cube22.rotateY(Math.PI / 2)
+			cube23.rotateY(Math.PI / 2)
+			cube24.rotateY(Math.PI / 2)
+			cube25.rotateY(Math.PI / 2)
+			cube26.rotateY(Math.PI / 2)
+			cube27.rotateY(Math.PI / 2)
+
+		});
+		window.addEventListener('resize', onWindowResize, false);
 
 		animate();
 
 	}; //end initialize / setup
+
+
+function getFace(event){
+		event.preventDefault();
+		mouse.x = ((event.clientX - renderer.domElement.offsetLeft) / renderer.domElement.clientWidth) * 2 - 1;
+		mouse.y = - ((event.clientY - renderer.domElement.offsetTop) / renderer.domElement.clientHeight) * 2 + 1;
+
+		var vector = new THREE.Vector3( mouse.x, mouse.y, 0 );
+		vector.unproject(camera);
+		ray.setFromCamera(mouse, camera);
+		var intersects = ray.intersectObjects( scene.children );
+		var physicalFace, globalFace, moveNum;
+
+		if(intersects.length === 0) return null;
+
+		// console.log(intersects);
+		if ( intersects.length > 0 ) {
+			for(var i = 0; i < intersects.length; i++){
+				if (intersects[i].face.materialIndex > 0) {
+					physicalFace = intersects[i].faceIndex;
+					break;
+				}
+			}
+		}
+
+		// globalFace = globalFaceState[physicalFace];
+		// globalFace = physicalFaceState[globalFace];
+
+		var arr = Object.keys(globalFaceState);
+		for(i=0;i<arr.length;i++){
+			if (globalFaceState[arr[i]] === physicalFace){
+				globalFace = arr[i];
+				break;
+			}
+		}
+
+
+		// globalFace = hashBinarySearch(globalFaceState, physicalFace, 0, 108);
+		moveNum = faceToMovement[globalFace];
+
+
+		console.log('physicalFace');
+		console.log(physicalFace);
+		console.log('globalFace');
+		console.log(globalFace);
+		console.log('moveNum');
+		console.log(moveNum);
+		console.log('globalCube');
+		console.log(globalFaceToCube[globalFace]);
+
+		rotateMovement(moveNum);
+		updateCubeState(movements[moveNum]);
+		updateFaceState(facements[moveNum]);
+		// updateXYZState();
+
+}
+
+function hashBinarySearch(hash, target, first, last) {
+  if (last - first === 0) {
+     return -1;
+   }
+
+
+   const mid = Math.floor((last-first) / 2) + first;
+
+   if (hash[mid] === target) {
+
+     return mid;
+
+   } else if (hash[mid] > target) {
+
+     return hashBinarySearch(hash, target, 0, mid);
+
+   } else {
+
+     const subproblem =  hashBinarySearch(hash, target, mid+1, last);
+     return subproblem === -1 ? -1 : subproblem;
+   }
+ }
+
+function rotateMovement(numMove){
+	if(numMove <= 6){
+		rotator(numMove, 'x');
+	}else if (numMove <= 12) {
+		rotator(numMove, 'y');
+	}else if (numMove <= 17) {
+		rotator(numMove, 'z');
+	}
+}
+
+function rotator(numMove, ltr){
+	var pi = direction[numMove];
+	var selectedCubes = movements[numMove];
+	var k = Object.keys(selectedCubes);
+
+	for(var i = 0; i < 9; i++){
+		rotateHelper(globalCubeState[k[i]], pi, ltr);
+	}
+
+}
+
+function rotateHelper(cube, pi, ltr){
+	var xyz = xyzState[cube.uuid]; // How find a cubes xyz's?? extend class? ***********************************
+	var tmpX = xyz.x;
+	var tmpY = xyz.y;
+	var tmpZ = xyz.z;
+
+	var tester;
+	if (ltr === 'x') {
+		tester = tmpX;
+	} else if (ltr === 'y') {
+		tester = tmpY;
+	} else if (ltr === 'z') {
+		tester = tmpZ;
+	}
+
+
+	if(tester === 'x'){
+		cube.rotateX(pi);
+	}else if (tester === 'y'){
+		cube.rotateY(pi);
+	}else if (tester === 'z'){
+		cube.rotateZ(pi);
+	}
+
+
+
+	updateXYZState(cube, ltr, tmpX, tmpY, tmpZ);
+
+}
+
+function updateXYZState(cube, ltr, tmpX, tmpY, tmpZ){
+	if (ltr === 'x') {
+		xyzState[cube.uuid].x = tmpX;
+		xyzState[cube.uuid].y = tmpZ;
+		xyzState[cube.uuid].z = tmpY;
+	} else if (ltr === 'y') {
+		xyzState[cube.uuid].x = tmpZ;
+		xyzState[cube.uuid].y = tmpY;
+		xyzState[cube.uuid].z = tmpX;
+	} else if (ltr === 'z') {
+		xyzState[cube.uuid].x = tmpY;
+		xyzState[cube.uuid].y = tmpX;
+		xyzState[cube.uuid].z = tmpZ;
+	}
+
+}
+
+function updateCubeState(hsh){
+	var cSD = {};
+	var keyz = Object.keys(hsh);
+
+	Object.keys(globalCubeState).forEach(function(ky) {
+	     cSD[ ky ] = globalCubeState[ ky ];
+	});
+	// debugger
+	for (var i = 0; i<keyz.length; i++){
+		cSD[keyz[i]] = globalCubeState[hsh[keyz[i]]];
+		// v = hsh[v];
+	}
+
+	globalCubeState = cSD;
+
+}
+
+function updateFaceState(hsh){
+	var fSD = {};
+	var keyz = Object.keys(hsh);
+// debugger
+	Object.keys(globalFaceState).forEach(function(ky) {
+	  fSD[ky] = globalFaceState[ky];
+	});
+
+
+	for (var i = 0; i < keyz.length; i++){
+		fSD[keyz[i]] = globalFaceState[hsh[keyz[i]]];
+		// v = hsh[v];
+	}
+
+	globalFaceState = fSD;
+
+}
 
 function onWindowResize() {
 	windowHalfX = window.innerWidth / 2;
@@ -911,10 +1195,10 @@ function onDocumentMouseUp(event) {
 	document.getElementsByTagName('canvas')[0].removeEventListener('mousemove', onDocumentMouseMove, false);
 	document.getElementsByTagName('canvas')[0].removeEventListener('mouseup', onDocumentMouseUp, false);
 
-	// getFace(event);
-}
+	debugFace(event);
 
-function getFace(event){
+}
+function debugFace(event){
 		event.preventDefault();
 		mouse.x = ((event.clientX - renderer.domElement.offsetLeft) / renderer.domElement.clientWidth) * 2 - 1;
 		mouse.y = - ((event.clientY - renderer.domElement.offsetTop) / renderer.domElement.clientHeight) * 2 + 1;
@@ -924,6 +1208,8 @@ function getFace(event){
 		ray.setFromCamera(mouse, camera);
 		var intersects = ray.intersectObjects( scene.children );
 		var physicalFace, globalFace, moveNum;
+
+		if(intersects.length === 0) return null;
 
 		// console.log(intersects);
 		if ( intersects.length > 0 ) {
@@ -935,136 +1221,28 @@ function getFace(event){
 			}
 		}
 
-		globalFace = faceState[physicalFace];
+
+		var arr = Object.keys(globalFaceState);
+		for(i=0;i<arr.length;i++){
+			if (globalFaceState[arr[i]] === physicalFace){
+				globalFace = arr[i];
+				break;
+			}
+		}
+		// globalFace = hashBinarySearch(globalFaceState, physicalFace, 0, 108);
 		moveNum = faceToMovement[globalFace];
 
 
-		rotateMovement(moveNum);
-		cubeSwapper(movements[moveNum]);
-		faceSwapper(facements[moveNum]);
+		console.log('physicalFace');
+		console.log(physicalFace);
+		console.log('globalFace');
+		console.log(globalFace);
+		console.log('moveNum');
+		console.log(moveNum);
+		console.log('globalCube');
+		console.log(globalFaceToCube[globalFace]);
 
 }
-
-function rotateMovement(numMove){
-	if(numMove <= 6){
-		rotator(numMove, 'x');
-		// rotateHelper('x', numMove);
-	}else if (numMove <= 12) {
-		rotator(numMove, 'y');
-	}else if (numMove <= 17) {
-		rotator(numMove, 'z');
-	}
-}
-
-function rotator(numMove, ltr){
-	var pi = direction[numMove];
-	var selectedCubes = movements[numMove];
-	var k = Object.keys(selectedCubes);
-	// debugger
-	for(var i = 0; i < 9; i++){
-		cubeState[k[i]].rotateX(pi);
-	}
-
-// var mathPi = Math.PI / 2;
-// direction = {1:mathPi, 3:-mathPi, 4:mathPi, 6:-mathPi, 7:-mathPi, 9:-mathPi, 10:mathPi, 12:mathPi, 14:mathPi, 15:-mathPi, 16:mathPi, 17:-mathPi};
-
-	for(var i = 0; i < 9; i++){
-		rotateHelper(cubeState[k[i]], pi, ltr);
-	}
-
-
-}
-
-function rotateHelper(cube, pi, ltr){
-	var xyz = xyzState[cube.uuid]; // How find a cubes xyz's?? extend class? ***********************************
-	var tstX = xyz.x;
-	var tstY = xyz.y;
-	var tstZ = xyz.z;
-
-	var tester;
-	if (ltr === 'x') {
-		tester = tstX;
-	} else if (ltr === 'y') {
-		tester = tstY;
-	} else if (ltr === 'z') {
-		tester = tstZ;
-	}
-
-
-	if(tester === 'x'){
-		cube.rotateX(pi);
-	}else if (tester === 'y'){
-		cube.rotateY(pi);
-	}else if (tester === 'y'){
-		cube.rotateZ(pi);
-	}
-
-}
-
-
-// next step is to update xyzState
-function updateXYZState(){
-
-}
-
-function rotateY(numMove){
-	var pi = direction[numMove];
-	var selectedCubes = movements[numMove];
-	var k = Object.keys(selectedCubes);
-	// debugger
-	for(var i = 0; i < 9; i++){
-		cubeState[k[i]].rotateY(pi);
-	}
-}
-
-function rotateZ(numMove){
-	var pi = direction[numMove];
-	var selectedCubes = movements[numMove];
-	var k = Object.keys(selectedCubes);
-
-	for(var i = 0; i < 9; i++){
-		cubeState[k[i]].rotateZ(pi);
-	}
-}
-
-
-function cubeSwapper(hsh){
-	var cSD = {};
-	var keyz = Object.keys(hsh);
-
-	Object.keys(cubeState).forEach(function(ky) {
-	     cSD[ ky ] = cubeState[ ky ];
-	});
-	// debugger
-	for (var i = 0; i<keyz.length; i++){
-		cSD[keyz[i]] = cubeState[hsh[keyz[i]]];
-		// v = hsh[v];
-	}
-
-	cubeState = cSD;
-
-}
-
-
-
-function faceSwapper(hsh){
-	var fSD = {};
-	var keyz = Object.keys(hsh);
-
-	Object.keys(faceState).forEach(function(ky) {
-	     fSD[ ky ] = faceState[ ky ];
-	});
-
-
-	for (var i = 0; i < keyz.length; i++){
-		fSD[keyz[i]] = faceState[hsh[keyz[i]]];
-		// v = hsh[v];
-	}
-
-	faceState = fSD;
-
-}
-
 
 function getWorldPosition(cubo, faces){
 	var norm = new THREE.Matrix3().getNormalMatrix( cubo.matrixWorld );
