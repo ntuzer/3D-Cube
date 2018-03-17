@@ -21,11 +21,11 @@ RubiksCube.RotationWithQuaternion = (function() {
 
 
 	var globalFaceState, xyzState, cubeRef;
-	var edgeMap, edgeTruth, edgePolarity;
+	var edgeMap, edgePolarity, edgeToGlobalFace;
 	var movements, facements;
 	var face1, face3, face4, face6, face7, face9, face10, face12, face14, face15, face16, face17;
-	var faceToMovement, globalFaceToCube, cubeToFace;
-	var centerMap, globalCenterState;
+	var faceToMovement, globalFaceToCube, cubeToFace, cubeMovementToDirection;
+	var centerState, centerMappingByMovement, centerPolarity;
 	var direction;
 	var container;
 	var camera, scene, renderer;
@@ -738,25 +738,25 @@ RubiksCube.RotationWithQuaternion = (function() {
 			xyzState[globalCubeState[2].uuid] = {x: 'xp', y: 'yn', z: 'zzpz'}; //edge
 			xyzState[globalCubeState[3].uuid] = {x: 'xp', y: 'yn', z: 'zn'};
 			xyzState[globalCubeState[4].uuid] = {x: 'xp', y: 'yzpp', z: 'zp'}; //edge
-			xyzState[globalCubeState[5].uuid] = {x: 'xp', y: 'yc', z: 'zc'}; 				//center
+			xyzState[globalCubeState[5].uuid] = {x: 'xc', y: 'yc', z: 'zc'}; 				//center
 			xyzState[globalCubeState[6].uuid] = {x: 'xp', y: 'yzpn', z: 'zn'}; //edge
 			xyzState[globalCubeState[7].uuid] = {x: 'xp', y: 'yp', z: 'zp'};
 			xyzState[globalCubeState[8].uuid] = {x: 'xp', y: 'yp', z: 'zzpp'}; //edge
 			xyzState[globalCubeState[9].uuid] = {x: 'xp', y: 'yp', z: 'zn'};
 			xyzState[globalCubeState[10].uuid] = {x: 'xznp', y: 'yn', z: 'zp'}; //edge
-			xyzState[globalCubeState[11].uuid] = {x: 'xc', y: 'yn', z: 'zc'}; 			//center
+			xyzState[globalCubeState[11].uuid] = {x: 'xc', y: 'yc', z: 'zc'}; 			//center
 			xyzState[globalCubeState[12].uuid] = {x: 'xznn', y: 'yn', z: 'zn'}; //edge
-			xyzState[globalCubeState[13].uuid] = {x: 'xc', y: 'yc', z: 'zp'}; 			//center
+			xyzState[globalCubeState[13].uuid] = {x: 'xc', y: 'yc', z: 'zc'}; 			//center
 			xyzState[globalCubeState[14].uuid] = {x: 'xz', y: 'yz', z: 'zz'}; //hidden
-			xyzState[globalCubeState[15].uuid] = {x: 'xc', y: 'yc', z: 'zn'}; 			//center
+			xyzState[globalCubeState[15].uuid] = {x: 'xc', y: 'yc', z: 'zc'}; 			//center
 			xyzState[globalCubeState[16].uuid] = {x: 'xzpp', y: 'yp', z: 'zp'}; //edge
-			xyzState[globalCubeState[17].uuid] = {x: 'xc', y: 'yp', z: 'zc'}; 			//center
+			xyzState[globalCubeState[17].uuid] = {x: 'xc', y: 'yc', z: 'zc'}; 			//center
 			xyzState[globalCubeState[18].uuid] = {x: 'xzpn', y: 'yp', z: 'zn'}; //edge
 			xyzState[globalCubeState[19].uuid] = {x: 'xn', y: 'yn', z: 'zp'};
 			xyzState[globalCubeState[20].uuid] = {x: 'xn', y: 'yn', z: 'zznn'}; //edge
 			xyzState[globalCubeState[21].uuid] = {x: 'xn', y: 'yn', z: 'zn'};
 			xyzState[globalCubeState[22].uuid] = {x: 'xn', y: 'yznp', z: 'zp'}; //edge
-			xyzState[globalCubeState[23].uuid] = {x: 'xn', y: 'yc', z: 'zc'}; 			//center
+			xyzState[globalCubeState[23].uuid] = {x: 'xc', y: 'yc', z: 'zc'}; 			//center
 			xyzState[globalCubeState[24].uuid] = {x: 'xn', y: 'yznn', z: 'zn'}; //edge
 			xyzState[globalCubeState[25].uuid] = {x: 'xn', y: 'yp', z: 'zp'};
 			xyzState[globalCubeState[26].uuid] = {x: 'xn', y: 'yp', z: 'zznp'}; //edge
@@ -778,7 +778,7 @@ RubiksCube.RotationWithQuaternion = (function() {
 			26: false
 		};
 
-		edgeTruth = {
+		edgePolarity = {
 		  2: true, 3: true,
 		  6: false, 7: false,
 		  10: true, 11: true,
@@ -805,7 +805,7 @@ RubiksCube.RotationWithQuaternion = (function() {
 		  104: false, 105: false,
 		};
 
-		edgePolarity = {
+		edgeToGlobalFace = {
 		  3: { 10:56, 12:104, 16:74, 18:38 },
 		  4: { 10:86, 12:68, 16:50, 18:92 },
 		  9: { 4:6, 6:96, 22:78, 24:24 },
@@ -814,46 +814,52 @@ RubiksCube.RotationWithQuaternion = (function() {
 		  16: { 2:64, 8:2, 20:32, 26:42 },
 		};
 
-		centerMap = {
-		  5: {
-		    N: true,
-		    S: false,
-		    E: true,
-		    W: false,
+		centerMappingByMovement = {
+			5: { // 5 N GOES TO 11 N || 5N GOES TO 17S
+		    1: {N:'W', S:'E', E:'N', W:'S'},
+		    15: {N:'N', S:'S', E:'E', W:'W'},
+		    9: {N:'N', S:'S', E:'E', W:'W'},
+		    10: {N:'N', S:'S', E:'E', W:'W'},
+		    16: {N:'S', S:'N', E:'W', W:'E'},
 		  },
 		  11: {
-		    N: true,
-		    S: false,
-		    E: true,
-		    W: false,
+		    7: {N:'W', S:'E', E:'N', W:'S'},
+		    16: {N:'N', S:'S', E:'E', W:'W'},
+		    3: {N:'E', S:'W', E:'S', W:'N'},
+		    4: {N:'W', S:'E', E:'N', W:'S'},
+		    15: {N:'S', S:'N', E:'W', W:'E'},
 		  },
-		  13: {
-		    N: false,
-		    S: true,
-		    E: true,
-		    W: false,
+		  13: {//d
+		    14: {N:'W', S:'E', E:'N', W:'S'},
+		    10: {N:'N', S:'S', E:'E', W:'W'},
+		    4: {N:'W', S:'E', E:'N', W:'S'},
+		    3: {N:'W', S:'E', E:'N', W:'S'},
+		    9: {N:'N', S:'S', E:'E', W:'W'},
 		  },
 		  15: {
-		    N: true,
-		    S: false,
-		    E: true,
-		    W: false,
+		    17: {N:'W', S:'E', E:'N', W:'S'},
+		    9: {N:'N', S:'S', E:'E', W:'W'},
+		    3: {N:'E', S:'W', E:'S', W:'N'},
+		    4: {N:'E', S:'W', E:'S', W:'N'},
+		    10: {N:'N', S:'S', E:'E', W:'W'},
 		  },
 		  17: {
-		    N: false,
-		    S: true,
-		    E: true,
-		    W: false,
+		    12: {N:'W', S:'E', E:'N', W:'S'},
+		    15: {N:'S', S:'N', E:'W', W:'E'},
+		    4: {N:'E', S:'W', E:'S', W:'N'},
+		    3: {N:'E', S:'W', E:'N', W:'S'},
+		    16: {N:'N', S:'S', E:'E', W:'W'},
 		  },
 		  23: {
-		    N: false,
-		    S: true,
-		    E: true,
-		    W: false,
+		    14: {N:'W', S:'E', E:'N', W:'S'},
+		    16: {N:'S', S:'N', E:'W', W:'E'},
+		    10: {N:'N', S:'S', E:'E', W:'W'},
+		    9: {N:'N', S:'S', E:'E', W:'W'},
+		    15: {N:'N', S:'S', E:'E', W:'W'},
 		  }
 		};
 
-		globalCenterState = {
+		centerState = {
 		  5: {
 		    N:true,
 		    S:false,
@@ -889,6 +895,51 @@ RubiksCube.RotationWithQuaternion = (function() {
 		    S:true,
 		    E:true,
 		    W:false,
+		  }
+		};
+
+		cubeMovementToDirection = {
+		  5: {
+		    1: ['X', 5],
+		    15: ['S', 11],
+		    9: ['W', 13],
+		    10: ['E', 15],
+		    16: ['N', 17],
+		  },
+		  11: {
+		    7: ['X', 11],
+		    16: ['N', 5],
+		    4: ['E', 15],
+		    3: ['W', 13],
+		    15: ['S', 23],
+		  },
+		  13: {//d
+		    14: ['X', 13],
+		    10: ['E', 5],
+		    4: ['S', 11],
+		    3: ['N', 17],
+		    9: ['W', 23],
+		  },
+		  15: {
+		    17: ['X', 15],
+		    9: ['W', 5],
+		    3: ['S', 11],
+		    4: ['N', 17],
+		    10: ['E', 23],
+		  },
+		  17: {
+		    12: ['X', 17],
+		    15: ['N', 5],
+		    4: ['E', 13],
+		    3: ['W', 15],
+		    16: ['S', 23],
+		  },
+		  23: {
+		    14: ['X', 23],
+		    16: ['S', 11],
+		    10: ['E', 13],
+		    9: ['W', 15],
+		    15: ['N', 17],
 		  }
 		};
 
@@ -1087,7 +1138,10 @@ RubiksCube.RotationWithQuaternion = (function() {
 
 	}; //end initialize / setup
 
+//****************************************************************************
 
+
+//local cube rotations:
 function getFace(event){
 		event.preventDefault();
 		mouse.x = ((event.clientX - renderer.domElement.offsetLeft) / renderer.domElement.clientWidth) * 2 - 1;
@@ -1194,9 +1248,11 @@ function rotateHelper(cube, gCubeNum, pi, ltr, numMove){
 	var tmpZ = xyz.z;
 	var gC = globalCubeState[cube];
 	var edge = edgeMap[gC];
-	var pF, gF, polarity, edgeTest;
-
+	var pF, gF, cGF, polarity, edgeTest, dr;
 	var center = false;
+
+	polarity = (numMove % 2 === 0);
+
 	if (gCubeNum === 5
 		|| gCubeNum === 11 || gCubeNum === 13
 		|| gCubeNum === 15 || gCubeNum === 17
@@ -1218,27 +1274,39 @@ function rotateHelper(cube, gCubeNum, pi, ltr, numMove){
 	if(tester === 'xp'){
 		if (pi < 0) pi *= -1;
 		cube.rotateX(pi);
-	}else if (tester === 'xc'){
-		cube.rotateX(pi);
+	// }else if (tester === 'xc'){
+	// 	cube.rotateX(pi);
 	}else if (tester === 'xn'){
 		if (pi > 0) pi *= -1;
 		cube.rotateX(pi);
 	}else if (tester === 'yp'){
 		if (pi < 0) pi *= -1;
 		cube.rotateY(pi);
-	}else if (tester === 'yc'){
-		cube.rotateY(pi);
+	// }else if (tester === 'yc'){
+	// 	cube.rotateY(pi);
 	}else if (tester === 'yn'){
 		if (pi > 0) pi *= -1;
 		cube.rotateY(pi);
 	}else if (tester === 'zp'){
 		if (pi < 0) pi *= -1;
 		cube.rotateZ(pi);
-	}else if (tester === 'zc'){
-		cube.rotateZ(pi);
+	// }else if (tester === 'zc'){
+	// 	cube.rotateZ(pi);
 	}else if (tester === 'zn'){
 		if (pi > 0) pi *= -1;
 		cube.rotateZ(pi);
+
+		//CENTERS
+	}else if (tester === 'xc'){
+		//check polarity of physicalFace against current movement polarity if same do nothing else pi *= -1
+		//based on movement gCube maps to what cube?
+		dr = cubeMovementToDirection[gCubeNum]['N']
+		pF = globalFaceState[cGF];
+		if (centerState[gCubeNum][dr] !== polarity) pi *= -1;
+	}else if (tester === 'yc'){
+
+	}else if (tester === 'zc'){
+
 
 
 		//EDGES
@@ -1246,32 +1314,26 @@ function rotateHelper(cube, gCubeNum, pi, ltr, numMove){
 
 		//movement# & globalCube# look up your globalFace and check your +/- against your physicalFace +/-
 		// if same do pi if not pi *= -1
-		// debugger
-		gF = edgePolarity[numMove][gCubeNum];
+		gF = edgeToGlobalFace[numMove][gCubeNum];
 		pF = globalFaceState[gF];
-		polarity = (numMove % 2 === 0);
-		if (polarity !== edgeTruth[pF]) pi *= -1;
+		if (polarity !== edgePolarity[pF]) pi *= -1;
 		cube.rotateX(pi);
 	}else if (tester[0] === 'y'){
-		// debugger
-		polarity = (numMove % 2 === 0);
-		gF = edgePolarity[numMove][gCubeNum];
+		gF = edgeToGlobalFace[numMove][gCubeNum];
 		pF = globalFaceState[gF];
-		if (polarity !== edgeTruth[pF]) pi *= -1;
+		if (polarity !== edgePolarity[pF]) pi *= -1;
 		cube.rotateY(pi);
 	}else if (tester[0] === 'z'){
-		// debugger
-		polarity = (numMove % 2 === 0);
-		gF = edgePolarity[numMove][gCubeNum];
+		gF = edgeToGlobalFace[numMove][gCubeNum];
 		pF = globalFaceState[gF];
-		if (polarity !== edgeTruth[pF]) pi *= -1;
+		if (polarity !== edgePolarity[pF]) pi *= -1;
 		cube.rotateZ(pi);
 	}
 
 
 
+	updateCenterState();
 	updateXYZState(cube, ltr, tmpX, tmpY, tmpZ);
-
 
 }
 
@@ -1312,7 +1374,6 @@ function updateCubeState(hsh){
 function updateFaceState(hsh){
 	var fSD = {};
 	var keyz = Object.keys(hsh);
-// debugger
 	Object.keys(globalFaceState).forEach(function(ky) {
 	  fSD[ky] = globalFaceState[ky];
 	});
@@ -1327,6 +1388,13 @@ function updateFaceState(hsh){
 
 }
 
+function updateCenterState(){
+
+}
+
+
+
+//global rotation methods below:
 function onWindowResize() {
 	windowHalfX = window.innerWidth / 2;
 	windowHalfY = window.innerHeight / 2;
