@@ -22,10 +22,10 @@ RubiksCube.RotationWithQuaternion = (function() {
 
 	var globalFaceState, xyzState, cubeRef;
 	var edgeMap, edgePolarity, edgeToGlobalFace;
-	var movements, facements;
+	var movements, facements, movementPolarity;
 	var face1, face3, face4, face6, face7, face9, face10, face12, face14, face15, face16, face17;
 	var faceToMovement, globalFaceToCube, cubeToFace, cubeMovementToDirection;
-	var centerState, centerMappingByMovement, centerPolarity;
+	var centerState, centerMappingByMovement, centerPolarity, movementToCubes;
 	var direction;
 	var container;
 	var camera, scene, renderer;
@@ -762,6 +762,20 @@ RubiksCube.RotationWithQuaternion = (function() {
 			xyzState[globalCubeState[26].uuid] = {x: 'xn', y: 'yp', z: 'zznp'}; //edge
 			xyzState[globalCubeState[27].uuid] = {x: 'xn', y: 'yp', z: 'zn'};
 
+		movementPolarity = {
+		  1:true,
+		  3:false,
+		  4:true,
+		  6:false,
+		  7:false,
+		  9:false,
+		  10:true,
+		  12:true,
+		  14:true,
+		  15:false,
+		  16:true,
+		  17:false,
+		};
 
 		edgeMap = {
 			2: true,
@@ -851,7 +865,7 @@ RubiksCube.RotationWithQuaternion = (function() {
 		    16: {N:'N', S:'S', E:'E', W:'W'},
 		  },
 		  23: {
-		    14: {N:'W', S:'E', E:'N', W:'S'},
+		    6: {N:'W', S:'E', E:'N', W:'S'},
 		    16: {N:'S', S:'N', E:'W', W:'E'},
 		    10: {N:'N', S:'S', E:'E', W:'W'},
 		    9: {N:'N', S:'S', E:'E', W:'W'},
@@ -899,48 +913,63 @@ RubiksCube.RotationWithQuaternion = (function() {
 		};
 
 		cubeMovementToDirection = {
-		  5: {
-		    1: ['X', 5],
-		    15: ['S', 11],
-		    9: ['W', 13],
-		    10: ['E', 15],
-		    16: ['N', 17],
-		  },
-		  11: {
-		    7: ['X', 11],
-		    16: ['N', 5],
-		    4: ['E', 15],
-		    3: ['W', 13],
-		    15: ['S', 23],
-		  },
-		  13: {//d
-		    14: ['X', 13],
-		    10: ['E', 5],
-		    4: ['S', 11],
-		    3: ['N', 17],
-		    9: ['W', 23],
-		  },
-		  15: {
-		    17: ['X', 15],
-		    9: ['W', 5],
-		    3: ['S', 11],
-		    4: ['N', 17],
-		    10: ['E', 23],
-		  },
-		  17: {
-		    12: ['X', 17],
-		    15: ['N', 5],
-		    4: ['E', 13],
-		    3: ['W', 15],
-		    16: ['S', 23],
-		  },
-		  23: {
-		    14: ['X', 23],
-		    16: ['S', 11],
-		    10: ['E', 13],
-		    9: ['W', 15],
-		    15: ['N', 17],
-		  }
+			5: {
+				1: ['X', 5],
+				15: ['S', 17],
+				9: ['W', 15],
+				10: ['E', 13],
+				16: ['N', 11],
+			},
+			11: {
+				7: ['X', 11],
+				16: ['N', 23],
+				4: ['E', 13],
+				3: ['W', 15],
+				15: ['S', 5],
+			},
+			13: {//d
+				14: ['X', 13],
+				10: ['E', 23],
+				4: ['S', 17],
+				3: ['N', 11],
+				9: ['W', 5],
+			},
+			15: {
+				17: ['X', 15],
+				9: ['W', 23],
+				3: ['S', 17],
+				4: ['N', 11],
+				10: ['E', 5],
+			},
+			17: {
+				12: ['X', 17],
+				15: ['N', 23],
+				4: ['E', 15],
+				3: ['W', 13],
+				16: ['S', 5],
+			},
+			23: {
+				6: ['X', 23],
+				16: ['S', 17],
+				10: ['E', 15],
+				9: ['W', 13],
+				15: ['N', 11],
+			}
+		};
+
+		movementToCubes = {
+		  1: [5],
+		  3: [11, 13, 15, 17],
+		  4: [11, 13, 15, 17],
+		  6: [23],
+		  7: [11],
+		  9: [5,13,15,23],
+		  10: [5,13,15,23],
+		  12: [17],
+		  14: [13],
+		  15: [5,11,17,23],
+		  16: [5,11,17,23],
+		  17: [15],
 		};
 
 		//direction
@@ -1193,6 +1222,7 @@ function getFace(event){
 		rotateMovement(moveNum);
 		updateCubeState(movements[moveNum]);
 		updateFaceState(facements[moveNum]);
+		// updateCenterState(moveNum);
 
 }
 
@@ -1242,21 +1272,21 @@ function rotator(numMove, ltr){
 
 function rotateHelper(cube, gCubeNum, pi, ltr, numMove){
 
-	var xyz = xyzState[cube.uuid]; // How find a cubes xyz's?? extend class? ***********************************
+	var xyz = xyzState[cube.uuid];
 	var tmpX = xyz.x;
 	var tmpY = xyz.y;
 	var tmpZ = xyz.z;
-	var gC = globalCubeState[cube];
+	var gC = globalCubeState[gCubeNum];
 	var edge = edgeMap[gC];
 	var pF, gF, cGF, polarity, edgeTest, dr;
 	var center = false;
 
-	polarity = (numMove % 2 === 0);
-
-	if (gCubeNum === 5
-		|| gCubeNum === 11 || gCubeNum === 13
-		|| gCubeNum === 15 || gCubeNum === 17
-		|| gCubeNum ===23) center = true;
+	polarity = movementPolarity[numMove];
+// debugger
+	if (gCubeNum === '5'
+		|| gCubeNum === '11' || gCubeNum === '13'
+		|| gCubeNum === '15' || gCubeNum === '17'
+		|| gCubeNum ==='23') center = true;
 
 
 	var tester;
@@ -1300,13 +1330,17 @@ function rotateHelper(cube, gCubeNum, pi, ltr, numMove){
 	}else if (tester === 'xc'){
 		//check polarity of physicalFace against current movement polarity if same do nothing else pi *= -1
 		//based on movement gCube maps to what cube?
-		dr = cubeMovementToDirection[gCubeNum]['N']
-		pF = globalFaceState[cGF];
+		dr = cubeMovementToDirection[gCubeNum][numMove][0];
 		if (centerState[gCubeNum][dr] !== polarity) pi *= -1;
+		cube.rotateX(pi);
 	}else if (tester === 'yc'){
-
+		dr = cubeMovementToDirection[gCubeNum][numMove][0];
+		if (centerState[gCubeNum][dr] !== polarity) pi *= -1;
+		cube.rotateY(pi);
 	}else if (tester === 'zc'){
-
+		dr = cubeMovementToDirection[gCubeNum][numMove][0];
+		if (centerState[gCubeNum][dr] == polarity) pi *= -1;
+		cube.rotateZ(pi);
 
 
 		//EDGES
@@ -1332,7 +1366,7 @@ function rotateHelper(cube, gCubeNum, pi, ltr, numMove){
 
 
 
-	updateCenterState();
+	if(center) updateCenterState(gCubeNum, numMove);
 	updateXYZState(cube, ltr, tmpX, tmpY, tmpZ);
 
 }
@@ -1388,8 +1422,47 @@ function updateFaceState(hsh){
 
 }
 
-function updateCenterState(){
+function updateCenterState(gCubeNum, numMove){
+	var newCubeNum = cubeMovementToDirection[gCubeNum][numMove][1];
+	var duplicate = {};
 
+	var hsh = centerMappingByMovement[newCubeNum][numMove];
+	var keys = Object.keys(hsh);
+	for(var i = 0; i < keys.length; i++){
+		duplicate[hsh[keys[i]]] = centerState[newCubeNum][keys[i]];
+	}
+
+	centerState[gCubeNum] = duplicate;
+
+}
+
+function TupdateCenterState(numMove){
+	var centerStateDuplicate;
+
+	Object.keys(centerState).forEach(key => {
+		centerStateDuplicate[key] = centerState[key];
+	});
+
+
+// we need all the center cubes for this movement number
+	var newCubeNum = cubeMovementToDirection[gCubeNum][numMove][1];
+	var newState = {};
+
+	var hsh = centerMappingByMovement[newCubeNum][numMove];
+	var keys = Object.keys(hsh);
+	for(var i = 0; i < keys.length; i++){
+		duplicate[hsh[keys[i]]] = centerState[newCubeNum][keys[i]];
+	}
+
+	centerStateDuplicate[gCubeNum] = newState;
+
+
+
+
+
+
+
+	centerState = centerStateDuplicate;
 }
 
 
