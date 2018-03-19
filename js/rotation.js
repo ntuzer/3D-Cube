@@ -830,46 +830,46 @@ RubiksCube.RotationWithQuaternion = (function() {
 
 		centerMappingByMovement = {
 			5: { // 5 N GOES TO 11 N || 5N GOES TO 17S
-		    1: {N:'W', S:'E', E:'N', W:'S'},
-		    15: {N:'N', S:'S', E:'E', W:'W'},
-		    9: {N:'N', S:'S', E:'E', W:'W'},
-		    10: {N:'N', S:'S', E:'E', W:'W'},
-		    16: {N:'S', S:'N', E:'W', W:'E'},
+		    1: {N:'W', S:'E', E:'N', W:'S', X:'X'},
+		    15: {N:'N', S:'S', E:'E', W:'W', X:'X'},
+		    9: {N:'N', S:'S', E:'E', W:'W', X:'X'},
+		    10: {N:'N', S:'S', E:'E', W:'W', X:'X'},
+		    16: {N:'S', S:'N', E:'W', W:'E', X:'X'},
 		  },
 		  11: {
-		    7: {N:'W', S:'E', E:'N', W:'S'},
-		    16: {N:'N', S:'S', E:'E', W:'W'},
-		    3: {N:'E', S:'W', E:'S', W:'N'},
-		    4: {N:'W', S:'E', E:'N', W:'S'},
-		    15: {N:'S', S:'N', E:'W', W:'E'},
+		    7: {N:'W', S:'E', E:'N', W:'S', X:'X'},
+		    16: {N:'N', S:'S', E:'E', W:'W', X:'X'},
+		    3: {N:'E', S:'W', E:'S', W:'N', X:'X'},
+		    4: {N:'W', S:'E', E:'N', W:'S', X:'X'},
+		    15: {N:'S', S:'N', E:'W', W:'E', X:'X'},
 		  },
 		  13: {//d
-		    14: {N:'W', S:'E', E:'N', W:'S'},
-		    10: {N:'N', S:'S', E:'E', W:'W'},
-		    4: {N:'W', S:'E', E:'N', W:'S'},
-		    3: {N:'W', S:'E', E:'N', W:'S'},
-		    9: {N:'N', S:'S', E:'E', W:'W'},
+		    14: {N:'W', S:'E', E:'N', W:'S', X:'X'},
+		    10: {N:'N', S:'S', E:'E', W:'W', X:'X'},
+		    4: {N:'W', S:'E', E:'N', W:'S', X:'X'},
+		    3: {N:'W', S:'E', E:'N', W:'S', X:'X'},
+		    9: {N:'N', S:'S', E:'E', W:'W', X:'X'},
 		  },
 		  15: {
-		    17: {N:'W', S:'E', E:'N', W:'S'},
-		    9: {N:'N', S:'S', E:'E', W:'W'},
-		    3: {N:'E', S:'W', E:'S', W:'N'},
-		    4: {N:'E', S:'W', E:'S', W:'N'},
-		    10: {N:'N', S:'S', E:'E', W:'W'},
+		    17: {N:'W', S:'E', E:'N', W:'S', X:'X'},
+		    9: {N:'N', S:'S', E:'E', W:'W', X:'X'},
+		    3: {N:'E', S:'W', E:'S', W:'N', X:'X'},
+		    4: {N:'E', S:'W', E:'S', W:'N', X:'X'},
+		    10: {N:'N', S:'S', E:'E', W:'W', X:'X'},
 		  },
 		  17: {
-		    12: {N:'W', S:'E', E:'N', W:'S'},
-		    15: {N:'S', S:'N', E:'W', W:'E'},
-		    4: {N:'E', S:'W', E:'S', W:'N'},
-		    3: {N:'E', S:'W', E:'N', W:'S'},
-		    16: {N:'N', S:'S', E:'E', W:'W'},
+		    12: {N:'W', S:'E', E:'N', W:'S', X:'X'},
+		    15: {N:'S', S:'N', E:'W', W:'E', X:'X'},
+		    4: {N:'E', S:'W', E:'S', W:'N', X:'X'},
+		    3: {N:'E', S:'W', E:'N', W:'S', X:'X'},
+		    16: {N:'N', S:'S', E:'E', W:'W', X:'X'},
 		  },
 		  23: {
-		    6: {N:'W', S:'E', E:'N', W:'S'},
-		    16: {N:'S', S:'N', E:'W', W:'E'},
-		    10: {N:'N', S:'S', E:'E', W:'W'},
-		    9: {N:'N', S:'S', E:'E', W:'W'},
-		    15: {N:'N', S:'S', E:'E', W:'W'},
+		    6: {N:'W', S:'E', E:'N', W:'S', X:'X'},
+		    16: {N:'S', S:'N', E:'W', W:'E', X:'X'},
+		    10: {N:'N', S:'S', E:'E', W:'W', X:'X'},
+		    9: {N:'N', S:'S', E:'E', W:'W', X:'X'},
+		    15: {N:'N', S:'S', E:'E', W:'W', X:'X'},
 		  }
 		};
 
@@ -879,36 +879,42 @@ RubiksCube.RotationWithQuaternion = (function() {
 		    S:false,
 		    E:true,
 		    W:false,
+				X:true
 		  },
 		  11: {
 		    N:true,
 		    S:false,
 		    E:true,
 		    W:false,
+				X:false
 		  },
 		  13: {
 		    N:false,
 		    S:true,
 		    E:true,
 		    W:false,
+				X:true
 		  },
 		  15: {
 		    N:true,
 		    S:false,
 		    E:true,
 		    W:false,
+				X:false
 		  },
 		  17: {
 		    N:false,
 		    S:true,
 		    E:true,
 		    W:false,
+				X:true
 		  },
 		  23: {
 		    N:false,
 		    S:true,
 		    E:true,
 		    W:false,
+				X:false
 		  }
 		};
 
@@ -1102,63 +1108,63 @@ RubiksCube.RotationWithQuaternion = (function() {
 
 		});
 		button1.addEventListener('click',() => {
-			cube1.rotateY(Math.PI / 2)
-			cube2.rotateY(Math.PI / 2)
-			cube3.rotateY(Math.PI / 2)
-			cube4.rotateY(Math.PI / 2)
+			// cube1.rotateY(Math.PI / 2)
+			// cube2.rotateY(Math.PI / 2)
+			// cube3.rotateY(Math.PI / 2)
+			// cube4.rotateY(Math.PI / 2)
 			cube5.rotateY(Math.PI / 2)
-			cube6.rotateY(Math.PI / 2)
-			cube7.rotateY(Math.PI / 2)
-			cube8.rotateY(Math.PI / 2)
-			cube9.rotateY(Math.PI / 2)
-			cube10.rotateY(Math.PI / 2)
-			cube11.rotateY(Math.PI / 2)
-			cube12.rotateY(Math.PI / 2)
-			cube13.rotateY(Math.PI / 2)
-			cube14.rotateY(Math.PI / 2)
-			cube15.rotateY(Math.PI / 2)
-			cube16.rotateY(Math.PI / 2)
-			cube17.rotateY(Math.PI / 2)
-			cube18.rotateY(Math.PI / 2)
-			cube19.rotateY(Math.PI / 2)
-			cube20.rotateY(Math.PI / 2)
-			cube21.rotateY(Math.PI / 2)
-			cube22.rotateY(Math.PI / 2)
-			cube23.rotateY(Math.PI / 2)
-			cube24.rotateY(Math.PI / 2)
-			cube25.rotateY(Math.PI / 2)
-			cube26.rotateY(Math.PI / 2)
-			cube27.rotateY(Math.PI / 2)
+			// cube6.rotateY(Math.PI / 2)
+			// cube7.rotateY(Math.PI / 2)
+			// cube8.rotateY(Math.PI / 2)
+			// cube9.rotateY(Math.PI / 2)
+			// cube10.rotateY(Math.PI / 2)
+			// cube11.rotateY(Math.PI / 2)
+			// cube12.rotateY(Math.PI / 2)
+			// cube13.rotateY(Math.PI / 2)
+			// cube14.rotateY(Math.PI / 2)
+			// cube15.rotateY(Math.PI / 2)
+			// cube16.rotateY(Math.PI / 2)
+			// cube17.rotateY(Math.PI / 2)
+			// cube18.rotateY(Math.PI / 2)
+			// cube19.rotateY(Math.PI / 2)
+			// cube20.rotateY(Math.PI / 2)
+			// cube21.rotateY(Math.PI / 2)
+			// cube22.rotateY(Math.PI / 2)
+			// cube23.rotateY(Math.PI / 2)
+			// cube24.rotateY(Math.PI / 2)
+			// cube25.rotateY(Math.PI / 2)
+			// cube26.rotateY(Math.PI / 2)
+			// cube27.rotateY(Math.PI / 2)
 
 		});
 		button2.addEventListener('click',() => {
-			cube1.rotateZ(Math.PI / 2)
-			cube2.rotateZ(Math.PI / 2)
-			cube3.rotateZ(Math.PI / 2)
-			cube4.rotateZ(Math.PI / 2)
+			// cube1.rotateZ(Math.PI / 2)
+			// cube2.rotateZ(Math.PI / 2)
+			// cube3.rotateZ(Math.PI / 2)
+			// cube4.rotateZ(Math.PI / 2)
 			cube5.rotateZ(Math.PI / 2)
-			cube6.rotateZ(Math.PI / 2)
-			cube7.rotateZ(Math.PI / 2)
-			cube8.rotateZ(Math.PI / 2)
-			cube9.rotateZ(Math.PI / 2)
-			cube10.rotateZ(Math.PI / 2)
-			cube11.rotateZ(Math.PI / 2)
-			cube12.rotateZ(Math.PI / 2)
-			cube13.rotateZ(Math.PI / 2)
-			cube14.rotateZ(Math.PI / 2)
-			cube15.rotateZ(Math.PI / 2)
-			cube16.rotateZ(Math.PI / 2)
-			cube17.rotateZ(Math.PI / 2)
-			cube18.rotateZ(Math.PI / 2)
-			cube19.rotateZ(Math.PI / 2)
-			cube20.rotateZ(Math.PI / 2)
-			cube21.rotateZ(Math.PI / 2)
-			cube22.rotateZ(Math.PI / 2)
-			cube23.rotateZ(Math.PI / 2)
-			cube24.rotateZ(Math.PI / 2)
-			cube25.rotateZ(Math.PI / 2)
-			cube26.rotateZ(Math.PI / 2)
-			cube27.rotateZ(Math.PI / 2)
+			// cube6.rotateZ(Math.PI / 2)
+			// cube7.rotateZ(Math.PI / 2)
+			// cube8.rotateZ(Math.PI / 2)
+			// cube9.rotateZ(Math.PI / 2)
+			// cube10.rotateZ(Math.PI / 2)
+			// cube11.rotateZ(Math.PI / 2)
+			// cube12.rotateZ(Math.PI / 2)
+			// cube13.rotateZ(Math.PI / 2)
+			// cube14.rotateZ(Math.PI / 2)
+			// cube15.rotateZ(Math.PI / 2)
+			// cube16.rotateZ(Math.PI / 2)
+			// cube17.rotateZ(Math.PI / 2)
+			// cube18.rotateZ(Math.PI / 2)
+			// cube19.rotateZ(Math.PI / 2)
+			// cube20.rotateZ(Math.PI / 2)
+			// cube21.rotateZ(Math.PI / 2)
+			// cube22.rotateZ(Math.PI / 2)
+			// cube23.rotateZ(Math.PI / 2)
+			// cube24.rotateZ(Math.PI / 2)
+			// cube25.rotateZ(Math.PI / 2)
+			// cube26.rotateZ(Math.PI / 2)
+			// cube27.rotateZ(Math.PI / 2)
 
 		});
 		window.addEventListener('resize', onWindowResize, false);
@@ -1222,8 +1228,13 @@ function getFace(event){
 		rotateMovement(moveNum);
 		updateCubeState(movements[moveNum]);
 		updateFaceState(facements[moveNum]);
-		// updateCenterState(moveNum);
 
+		// if (moveNum === '5'
+		// 	|| moveNum === '11' || moveNum === '13'
+		// 	|| moveNum === '15' || moveNum === '17'
+		// 	|| moveNum ==='23') {
+			updateCenterState(moveNum);
+		// }
 }
 
 function hashBinarySearch(hash, target, first, last) {
@@ -1339,7 +1350,7 @@ function rotateHelper(cube, gCubeNum, pi, ltr, numMove){
 		cube.rotateY(pi);
 	}else if (tester === 'zc'){
 		dr = cubeMovementToDirection[gCubeNum][numMove][0];
-		if (centerState[gCubeNum][dr] == polarity) pi *= -1;
+		if (centerState[gCubeNum][dr] !== polarity) pi *= -1;
 		cube.rotateZ(pi);
 
 
@@ -1366,7 +1377,7 @@ function rotateHelper(cube, gCubeNum, pi, ltr, numMove){
 
 
 
-	if(center) updateCenterState(gCubeNum, numMove);
+	// if(center) updateCenterState(gCubeNum, numMove);
 	updateXYZState(cube, ltr, tmpX, tmpY, tmpZ);
 
 }
@@ -1422,7 +1433,7 @@ function updateFaceState(hsh){
 
 }
 
-function updateCenterState(gCubeNum, numMove){
+function DupdateCenterState(gCubeNum, numMove){
 	var newCubeNum = cubeMovementToDirection[gCubeNum][numMove][1];
 	var duplicate = {};
 
@@ -1436,31 +1447,30 @@ function updateCenterState(gCubeNum, numMove){
 
 }
 
-function TupdateCenterState(numMove){
-	var centerStateDuplicate;
+function updateCenterState(numMove){
+	var centerStateDuplicate = {};
+	var cubesToUpdate;
 
 	Object.keys(centerState).forEach(key => {
 		centerStateDuplicate[key] = centerState[key];
 	});
 
+	cubesToUpdate = movementToCubes[numMove];
 
-// we need all the center cubes for this movement number
-	var newCubeNum = cubeMovementToDirection[gCubeNum][numMove][1];
-	var newState = {};
+	for (var i = 0; i < cubesToUpdate.length; i++) {
+		var newCubeNum = cubeMovementToDirection[cubesToUpdate[i]][numMove][1];
+		var newState = {};
+		var hsh = centerMappingByMovement[newCubeNum][numMove];
+		var keys = Object.keys(hsh);
 
-	var hsh = centerMappingByMovement[newCubeNum][numMove];
-	var keys = Object.keys(hsh);
-	for(var i = 0; i < keys.length; i++){
-		duplicate[hsh[keys[i]]] = centerState[newCubeNum][keys[i]];
+		for(var j = 0; j < keys.length; j++){
+			newState[hsh[keys[j]]] = centerState[newCubeNum][keys[j]];
+		}
+
+		centerStateDuplicate[cubesToUpdate[i]] = newState;
+
+
 	}
-
-	centerStateDuplicate[gCubeNum] = newState;
-
-
-
-
-
-
 
 	centerState = centerStateDuplicate;
 }
@@ -1564,6 +1574,7 @@ function debugFace(event){
 		console.log(moveNum);
 		console.log('globalCube');
 		console.log(globalFaceToCube[globalFace]);
+
 
 }
 
