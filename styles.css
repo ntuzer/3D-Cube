@@ -1,12 +1,22 @@
 body {
+  font-family: Monospace;
+  background-color: #ffffff;
+  /* overflow: hidden;
+  margin: 0; */
+ }
+
+main {
   background: white;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
 }
 
-body div {
-  margin-bottom: 10px;
+main div {
+  margin-top: 100px;
+  width: 100px;
 }
+
 
 canvas {
   /* margin-top: 100px; */
@@ -20,4 +30,8 @@ section h3 {
 
 .instructions {
 
+}
+
+.click:hover {
+  color: red;
 }
