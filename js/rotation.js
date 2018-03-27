@@ -1168,7 +1168,6 @@ RubiksCube.RotationWithQuaternion = (function() {
 		//
 		// });
 		window.addEventListener('resize', onWindowResize, false);
-
 		animate();
 
 	}; //end initialize / setup
@@ -1293,7 +1292,7 @@ function rotateHelper(cube, gCubeNum, pi, ltr, numMove){
 	var center = false;
 
 	polarity = movementPolarity[numMove];
-// debugger
+  // debugger
 	if (gCubeNum === '5'
 		|| gCubeNum === '11' || gCubeNum === '13'
 		|| gCubeNum === '15' || gCubeNum === '17'
@@ -1396,7 +1395,7 @@ function updateXYZState(cube, ltr, tmpX, tmpY, tmpZ){ //will take moveNum
 		xyzState[cube.uuid].y = tmpX;
 		xyzState[cube.uuid].z = tmpZ;
 	}
-
+//motion 3 followed by motion 10 causes an error RGJR
 }
 
 function updateCubeState(hsh){
@@ -1634,7 +1633,7 @@ function animate() {
 }
 
 function render() {
-	if (!mouseDown)
+	if (!mouseDown) //for momentum
 	{
 		var drag = 0.95;
 		var minDelta = 0.05;
