@@ -107,42 +107,42 @@ RubiksCube.RotationWithQuaternion = (function() {
 		// info.innerHTML = '3D - cube0';
 		// document.body.appendChild(info);
 
-		var button = document.createElement('div');
-			button.innerHTML = 'Rotate X'
-			button.style.border = '1px solid black'
-			button.style.padding = '10px';
-			button.style.width = '70px';
-			button.style.height = '20px';
-			button.style.borderRadius = '6px';
-			button.style.cursor = 'pointer';
-			button.style.className = "button";
-			button.style.background = 'lightgrey';
-			container.appendChild(button);
-		var button1 = document.createElement('div');
-			button1.innerHTML = 'Rotate Y'
-			button1.style.border = '1px solid black'
-			button1.style.padding = '10px';
-			button1.style.width = '70px';
-			button1.style.height = '20px';
-			button1.style.borderRadius = '6px';
-			button1.style.cursor = 'pointer';
-			button1.style.className = "button";
-			button1.style.background = 'lightgrey';
-			container.appendChild(button1);
-		var button2 = document.createElement('div');
-			button2.innerHTML = 'Rotate Z'
-			button2.style.border = '1px solid black'
-			button2.style.padding = '10px';
-			button2.style.width = '70px';
-			button2.style.height = '20px';
-			button2.style.borderRadius = '6px';
-			button2.style.cursor = 'pointer';
-			button2.style.className = "button";
-			button2.style.background = 'lightgrey';
-		container.appendChild(button2);
+		// var button = document.createElement('div');
+		// 	button.innerHTML = 'Rotate X'
+		// 	button.style.border = '1px solid black'
+		// 	button.style.padding = '10px';
+		// 	button.style.width = '70px';
+		// 	button.style.height = '20px';
+		// 	button.style.borderRadius = '6px';
+		// 	button.style.cursor = 'pointer';
+		// 	button.style.className = "button";
+		// 	button.style.background = 'lightgrey';
+		// 	container.appendChild(button);
+		// var button1 = document.createElement('div');
+		// 	button1.innerHTML = 'Rotate Y'
+		// 	button1.style.border = '1px solid black'
+		// 	button1.style.padding = '10px';
+		// 	button1.style.width = '70px';
+		// 	button1.style.height = '20px';
+		// 	button1.style.borderRadius = '6px';
+		// 	button1.style.cursor = 'pointer';
+		// 	button1.style.className = "button";
+		// 	button1.style.background = 'lightgrey';
+		// 	container.appendChild(button1);
+		// var button2 = document.createElement('div');
+		// 	button2.innerHTML = 'Rotate Z'
+		// 	button2.style.border = '1px solid black'
+		// 	button2.style.padding = '10px';
+		// 	button2.style.width = '70px';
+		// 	button2.style.height = '20px';
+		// 	button2.style.borderRadius = '6px';
+		// 	button2.style.cursor = 'pointer';
+		// 	button2.style.className = "button";
+		// 	button2.style.background = 'lightgrey';
+		// container.appendChild(button2);
 
 		camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-		camera.position.y = 50;
+		camera.position.y = 00;
 		camera.position.z = 500;
 
 		scene = new THREE.Scene();
@@ -1077,96 +1077,96 @@ RubiksCube.RotationWithQuaternion = (function() {
 		// var canvas = document.getElementsByTagName('canvas')[0];
 		document.getElementsByTagName('canvas')[0].addEventListener('mousedown', onDocumentMouseDown, false);
 		document.getElementsByTagName('canvas')[0].addEventListener('contextmenu', getFace, false);
-		button.addEventListener('click',() => {
-			cube1.rotateX(Math.PI / 2)
-			cube2.rotateX(Math.PI / 2)
-			cube3.rotateX(Math.PI / 2)
-			cube4.rotateX(Math.PI / 2)
-			cube5.rotateX(Math.PI / 2)
-			cube6.rotateX(Math.PI / 2)
-			cube7.rotateX(Math.PI / 2)
-			cube8.rotateX(Math.PI / 2)
-			cube9.rotateX(Math.PI / 2)
-			cube10.rotateX(Math.PI / 2)
-			cube11.rotateX(Math.PI / 2)
-			cube12.rotateX(Math.PI / 2)
-			cube13.rotateX(Math.PI / 2)
-			cube14.rotateX(Math.PI / 2)
-			cube15.rotateX(Math.PI / 2)
-			cube16.rotateX(Math.PI / 2)
-			cube17.rotateX(Math.PI / 2)
-			cube18.rotateX(Math.PI / 2)
-			cube19.rotateX(Math.PI / 2)
-			cube20.rotateX(Math.PI / 2)
-			cube21.rotateX(Math.PI / 2)
-			cube22.rotateX(Math.PI / 2)
-			cube23.rotateX(Math.PI / 2)
-			cube24.rotateX(Math.PI / 2)
-			cube25.rotateX(Math.PI / 2)
-			cube26.rotateX(Math.PI / 2)
-			cube27.rotateX(Math.PI / 2)
-
-		});
-		button1.addEventListener('click',() => {
-			// cube1.rotateY(Math.PI / 2)
-			// cube2.rotateY(Math.PI / 2)
-			// cube3.rotateY(Math.PI / 2)
-			// cube4.rotateY(Math.PI / 2)
-			cube5.rotateY(Math.PI / 2)
-			// cube6.rotateY(Math.PI / 2)
-			// cube7.rotateY(Math.PI / 2)
-			// cube8.rotateY(Math.PI / 2)
-			// cube9.rotateY(Math.PI / 2)
-			// cube10.rotateY(Math.PI / 2)
-			// cube11.rotateY(Math.PI / 2)
-			// cube12.rotateY(Math.PI / 2)
-			// cube13.rotateY(Math.PI / 2)
-			// cube14.rotateY(Math.PI / 2)
-			// cube15.rotateY(Math.PI / 2)
-			// cube16.rotateY(Math.PI / 2)
-			// cube17.rotateY(Math.PI / 2)
-			// cube18.rotateY(Math.PI / 2)
-			// cube19.rotateY(Math.PI / 2)
-			// cube20.rotateY(Math.PI / 2)
-			// cube21.rotateY(Math.PI / 2)
-			// cube22.rotateY(Math.PI / 2)
-			// cube23.rotateY(Math.PI / 2)
-			// cube24.rotateY(Math.PI / 2)
-			// cube25.rotateY(Math.PI / 2)
-			// cube26.rotateY(Math.PI / 2)
-			// cube27.rotateY(Math.PI / 2)
-
-		});
-		button2.addEventListener('click',() => {
-			// cube1.rotateZ(Math.PI / 2)
-			// cube2.rotateZ(Math.PI / 2)
-			// cube3.rotateZ(Math.PI / 2)
-			// cube4.rotateZ(Math.PI / 2)
-			cube5.rotateZ(Math.PI / 2)
-			// cube6.rotateZ(Math.PI / 2)
-			// cube7.rotateZ(Math.PI / 2)
-			// cube8.rotateZ(Math.PI / 2)
-			// cube9.rotateZ(Math.PI / 2)
-			// cube10.rotateZ(Math.PI / 2)
-			// cube11.rotateZ(Math.PI / 2)
-			// cube12.rotateZ(Math.PI / 2)
-			// cube13.rotateZ(Math.PI / 2)
-			// cube14.rotateZ(Math.PI / 2)
-			// cube15.rotateZ(Math.PI / 2)
-			// cube16.rotateZ(Math.PI / 2)
-			// cube17.rotateZ(Math.PI / 2)
-			// cube18.rotateZ(Math.PI / 2)
-			// cube19.rotateZ(Math.PI / 2)
-			// cube20.rotateZ(Math.PI / 2)
-			// cube21.rotateZ(Math.PI / 2)
-			// cube22.rotateZ(Math.PI / 2)
-			// cube23.rotateZ(Math.PI / 2)
-			// cube24.rotateZ(Math.PI / 2)
-			// cube25.rotateZ(Math.PI / 2)
-			// cube26.rotateZ(Math.PI / 2)
-			// cube27.rotateZ(Math.PI / 2)
-
-		});
+		// button.addEventListener('click',() => {
+		// 	cube1.rotateX(Math.PI / 2)
+		// 	cube2.rotateX(Math.PI / 2)
+		// 	cube3.rotateX(Math.PI / 2)
+		// 	cube4.rotateX(Math.PI / 2)
+		// 	cube5.rotateX(Math.PI / 2)
+		// 	cube6.rotateX(Math.PI / 2)
+		// 	cube7.rotateX(Math.PI / 2)
+		// 	cube8.rotateX(Math.PI / 2)
+		// 	cube9.rotateX(Math.PI / 2)
+		// 	cube10.rotateX(Math.PI / 2)
+		// 	cube11.rotateX(Math.PI / 2)
+		// 	cube12.rotateX(Math.PI / 2)
+		// 	cube13.rotateX(Math.PI / 2)
+		// 	cube14.rotateX(Math.PI / 2)
+		// 	cube15.rotateX(Math.PI / 2)
+		// 	cube16.rotateX(Math.PI / 2)
+		// 	cube17.rotateX(Math.PI / 2)
+		// 	cube18.rotateX(Math.PI / 2)
+		// 	cube19.rotateX(Math.PI / 2)
+		// 	cube20.rotateX(Math.PI / 2)
+		// 	cube21.rotateX(Math.PI / 2)
+		// 	cube22.rotateX(Math.PI / 2)
+		// 	cube23.rotateX(Math.PI / 2)
+		// 	cube24.rotateX(Math.PI / 2)
+		// 	cube25.rotateX(Math.PI / 2)
+		// 	cube26.rotateX(Math.PI / 2)
+		// 	cube27.rotateX(Math.PI / 2)
+		//
+		// });
+		// button1.addEventListener('click',() => {
+		// 	// cube1.rotateY(Math.PI / 2)
+		// 	// cube2.rotateY(Math.PI / 2)
+		// 	// cube3.rotateY(Math.PI / 2)
+		// 	// cube4.rotateY(Math.PI / 2)
+		// 	cube5.rotateY(Math.PI / 2)
+		// 	// cube6.rotateY(Math.PI / 2)
+		// 	// cube7.rotateY(Math.PI / 2)
+		// 	// cube8.rotateY(Math.PI / 2)
+		// 	// cube9.rotateY(Math.PI / 2)
+		// 	// cube10.rotateY(Math.PI / 2)
+		// 	// cube11.rotateY(Math.PI / 2)
+		// 	// cube12.rotateY(Math.PI / 2)
+		// 	// cube13.rotateY(Math.PI / 2)
+		// 	// cube14.rotateY(Math.PI / 2)
+		// 	// cube15.rotateY(Math.PI / 2)
+		// 	// cube16.rotateY(Math.PI / 2)
+		// 	// cube17.rotateY(Math.PI / 2)
+		// 	// cube18.rotateY(Math.PI / 2)
+		// 	// cube19.rotateY(Math.PI / 2)
+		// 	// cube20.rotateY(Math.PI / 2)
+		// 	// cube21.rotateY(Math.PI / 2)
+		// 	// cube22.rotateY(Math.PI / 2)
+		// 	// cube23.rotateY(Math.PI / 2)
+		// 	// cube24.rotateY(Math.PI / 2)
+		// 	// cube25.rotateY(Math.PI / 2)
+		// 	// cube26.rotateY(Math.PI / 2)
+		// 	// cube27.rotateY(Math.PI / 2)
+		//
+		// });
+		// button2.addEventListener('click',() => {
+		// 	// cube1.rotateZ(Math.PI / 2)
+		// 	// cube2.rotateZ(Math.PI / 2)
+		// 	// cube3.rotateZ(Math.PI / 2)
+		// 	// cube4.rotateZ(Math.PI / 2)
+		// 	cube5.rotateZ(Math.PI / 2)
+		// 	// cube6.rotateZ(Math.PI / 2)
+		// 	// cube7.rotateZ(Math.PI / 2)
+		// 	// cube8.rotateZ(Math.PI / 2)
+		// 	// cube9.rotateZ(Math.PI / 2)
+		// 	// cube10.rotateZ(Math.PI / 2)
+		// 	// cube11.rotateZ(Math.PI / 2)
+		// 	// cube12.rotateZ(Math.PI / 2)
+		// 	// cube13.rotateZ(Math.PI / 2)
+		// 	// cube14.rotateZ(Math.PI / 2)
+		// 	// cube15.rotateZ(Math.PI / 2)
+		// 	// cube16.rotateZ(Math.PI / 2)
+		// 	// cube17.rotateZ(Math.PI / 2)
+		// 	// cube18.rotateZ(Math.PI / 2)
+		// 	// cube19.rotateZ(Math.PI / 2)
+		// 	// cube20.rotateZ(Math.PI / 2)
+		// 	// cube21.rotateZ(Math.PI / 2)
+		// 	// cube22.rotateZ(Math.PI / 2)
+		// 	// cube23.rotateZ(Math.PI / 2)
+		// 	// cube24.rotateZ(Math.PI / 2)
+		// 	// cube25.rotateZ(Math.PI / 2)
+		// 	// cube26.rotateZ(Math.PI / 2)
+		// 	// cube27.rotateZ(Math.PI / 2)
+		//
+		// });
 		window.addEventListener('resize', onWindowResize, false);
 
 		animate();
