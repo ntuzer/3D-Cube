@@ -1216,14 +1216,14 @@ function getFace(event){
 		moveNum = faceToMovement[globalFace];
 		globalCube = globalFaceToCube[globalFace];
 
-		console.log('physicalFace');
-		console.log(physicalFace);
-		console.log('globalFace');
-		console.log(globalFace);
-		console.log('moveNum');
-		console.log(moveNum);
-		console.log('globalCube');
-		console.log(globalCube);
+		// console.log('physicalFace');
+		// console.log(physicalFace);
+		// console.log('globalFace');
+		// console.log(globalFace);
+		// console.log('moveNum');
+		// console.log(moveNum);
+		// console.log('globalCube');
+		// console.log(globalCube);
 
 		rotateMovement(moveNum);
 		updateCubeState(movements[moveNum]);
@@ -1528,7 +1528,7 @@ function onDocumentMouseUp(event) {
 	document.getElementsByTagName('canvas')[0].removeEventListener('mousemove', onDocumentMouseMove, false);
 	document.getElementsByTagName('canvas')[0].removeEventListener('mouseup', onDocumentMouseUp, false);
 
-	debugFace(event);
+	// debugFace(event);
 
 }
 function debugFace(event){
@@ -1566,14 +1566,14 @@ function debugFace(event){
 		moveNum = faceToMovement[globalFace];
 
 
-		console.log('physicalFace');
-		console.log(physicalFace);
-		console.log('globalFace');
-		console.log(globalFace);
-		console.log('moveNum');
-		console.log(moveNum);
-		console.log('globalCube');
-		console.log(globalFaceToCube[globalFace]);
+		// console.log('physicalFace');
+		// console.log(physicalFace);
+		// console.log('globalFace');
+		// console.log(globalFace);
+		// console.log('moveNum');
+		// console.log(moveNum);
+		// console.log('globalCube');
+		// console.log(globalFaceToCube[globalFace]);
 
 
 }
@@ -1609,6 +1609,7 @@ function projectOnTrackball(touchX, touchY) {
 }
 
 function rotateMatrix(rotateStart, rotateEnd) {
+	// console.log('rotateMatrix');
 	axis = new THREE.Vector3()
 	quaternion = new THREE.Quaternion();
 
