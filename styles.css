@@ -10,4 +10,14 @@ body div {
 
 canvas {
   /* margin-top: 100px; */
+  border-radius: 15px;
+}
+
+section h3 {
+  text-align: center;
+
+}
+
+.instructions {
+
 }
