@@ -12,34 +12,68 @@
 		</script>
 
 		<meta charset=utf-8>
-		<title>3D-CUBE</title>
-		<link rel="stylesheet" href="reset.css">
-		<link rel="stylesheet" href="styles.css">
+		<title>3D-CUBE by Rewel</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto|Russo+One" rel="stylesheet">
+		<link rel="stylesheet" href="assets/stylesheets/reset.css">
+		<link rel="stylesheet" href="assets/stylesheets/styles.css">
+		<script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+		<script type="text/javascript" src="assets/js/three/three.min.js"></script>
+		<script type="text/javascript" src="assets/js/three/examples/js/renderers/canvasRenderer.js"></script>
+		<script type="text/javascript" src="assets/js/three/examples/js/renderers/Projector.js"></script>
+		<script type="text/javascript" src="assets/js/cubeData.js"></script>
+		<script type="text/javascript" src="assets/js/rubiksCube.js"></script>
+		<script type="text/javascript" src="assets/js/controls.js"></script>
+		<script type="text/javascript" src="assets/js/start.js"></script>
 	</head>
 	<body>
-		<script type="text/javascript" src="js/three.js"></script>
-		<script type="text/javascript" src="js/three.min.js"></script>
-		<script type="text/javascript" src="js/stats.min.js"></script>
-		<script type="text/javascript" src="js/examples/js/renderers/CanvasRenderer.js"></script>
-		<script type="text/javascript" src="js/Projector.js"></script>
-		<script type="text/javascript" src="js/rotation.js"></script>
-
-		<main>
-			<div class="instructions">
-				<ul>
-					<li class="click">Click and drag to rotate the cube.</li>
-					<li>Right click on a face to rotate the faces.</li>
-					<li><a href="./test.html">Instruction on rotating the corners</a></li>
-				</ul>
-			</div>
-
-			<section>
-				<h3>3D Rubik's Cube</h3>
-				<!-- Canvas goes here -->
-			</section>
-
-			<div></div>
+		<div class="title">
+			<h1>3D - CUBE</h1>
+		</div>
+		<img src="assets/images/loading.gif" class="loading"/>
+		<main id='rubiksCube'>
 		</main>
+		<div class="slidecontainer">
+			<div class="slideHeader" onclick="toggleModal(event)">
+				Controls
+				<div class="headerCloseContainer">
+					<ion-icon id="icon" name="ios-close" onclick="toggleModal(event)" class="close"></ion-icon>
+				</div>
+			</div>
+			<div id="slideControls" class="slideControlsOpen">
+			  <p>Cube Rotation Speed:</p>
+			  <input id="speedSlider"  type="range" min="1" max="20" value="5" onchange="RubiksCube.setRotationSpeed(event)">
+				<button id="scramble" onclick="RubiksCube.scramble(event)">
+					<label id="red">S</label>
+					<label id="green">c</label>
+					<label id="blue">r</label>
+					<label id="orange">a</label>
+					<label id="red">m</label>
+					<label id="green">b</label>
+					<label id="blue">l</label>
+					<label id="orange">e</label>
+					<label id="yellow">!</label>
+				</button>
+				<button id="reset" onclick="RubiksCube.reset(event)">
+					<label id="blue">R</label>
+					<label id="blue">e</label>
+					<label id="blue">s</label>
+					<label id="blue">e</label>
+					<label id="blue">t</label>
+					<label id="blue">!</label>
+				</button>
+			</div>
+		</div>
 
+		<div class="links">
+			<a href="https://rewel.io" target="_blank">
+				<ion-icon name="copy"></ion-icon>
+			</a>
+			<a href="https://linkedin.com/in/rewelgarcia" target="_blank">
+				<ion-icon name="logo-linkedin"></ion-icon>
+			</a>
+			<a href="https://github.com/ntuzer" target="_blank">
+				<ion-icon name="logo-github"></ion-icon>
+			</a>
+		</div>
 	</body>
 </html>
