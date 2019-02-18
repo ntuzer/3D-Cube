@@ -55,10 +55,9 @@ RubiksCube = (function() {
 
     scene = new THREE.Scene();
     var color = new THREE.Color(0x95bfcb);
-    // var texture = new THREE.TextureLoader().load("assets/images/backdrop.png");
     scene.background = color;
 
-    for (let i = 0; i < 27; i++) {
+    for (var i = 0; i < 27; i++) {
       scene.add(cubes[i]);
     }
 
@@ -330,7 +329,7 @@ RubiksCube = (function() {
   function updateCenterState(movementNumber) {
     var updatedCenterState = {};
     var cubesToUpdate;
-    Object.keys(centerState).forEach(key => {
+    Object.keys(centerState).forEach(function(key) {
       updatedCenterState[key] = centerState[key];
     });
 
@@ -359,13 +358,9 @@ RubiksCube = (function() {
 
         newState[incomingCardinalDirection] =
           centerState[incomingCubeNumber][currentCardinalDirection];
-        // debugger;
       }
-      // if (cubeToBeUpdated === 11 || cubeToBeUpdated === 11)
-      // debugger;
       updatedCenterState[cubeToBeUpdated] = newState;
     }
-    // debugger;
     centerState = updatedCenterState;
   }
 
@@ -519,8 +514,8 @@ RubiksCube = (function() {
     rotateEndPoint = projectOnTrackball(deltaX, deltaY);
     var rotateQuaternion = rotateMatrix(rotateStartPoint, rotateEndPoint);
 
-    cubes.forEach(cube => {
-      let cubeQuaternion = cube.quaternion;
+    cubes.forEach(function(cube) {
+      var cubeQuaternion = cube.quaternion;
       cubeQuaternion.multiplyQuaternions(rotateQuaternion, cubeQuaternion);
       cubeQuaternion.normalize();
       cube.setRotationFromQuaternion(cubeQuaternion);
@@ -592,14 +587,14 @@ RubiksCube = (function() {
       setup();
     },
     setRotationSpeed: function(e) {
-      let num = e.srcElement.valueAsNumber;
-      num = num || 1;
-      if (num > 20) num = 20;
+      var num = e.srcElement.valueAsNumber;
+      num = num || 5;
+      if (num > 30) num = 30;
 
       cubeRotationSpeed = num;
     },
     setCubeSize: function(e) {
-      let num = e.srcElement.valueAsNumber;
+      var num = e.srcElement.valueAsNumber;
       num = num || 1;
       if (num > 20) num = 20;
 
@@ -609,11 +604,11 @@ RubiksCube = (function() {
       scramble();
     },
     reset: function() {
-      for (let i = 0; i < 27; i++) {
+      for (var i = 0; i < 27; i++) {
         scene.remove(cubes[i]);
       }
       resetCubeData();
-      for (let i = 0; i < 27; i++) {
+      for (var i = 0; i < 27; i++) {
         scene.add(cubes[i]);
       }
       manualRotate("left");

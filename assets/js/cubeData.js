@@ -33,11 +33,12 @@ var CubeData = function() {
   for (var i = 0; i < 6; i++) {
     var cmColors = ["white", "yellow", "red", "orange", "blue", "green"];
     for (var j = 0; j < 9; j++) {
-      var texture = new THREE.TextureLoader().load(
-        `https://raw.githubusercontent.com/ntuzer/3D-Cube/textures/${
-          cmColors[i]
-        }${j + 1}.gif`
-      );
+      var url =
+        "https://raw.githubusercontent.com/ntuzer/3D-Cube/master/assets/images/textures/" +
+        cmColors[i] +
+        (j + 1) +
+        ".gif";
+      var texture = new THREE.TextureLoader().load(url);
       var meshMaterial = new THREE.MeshBasicMaterial({ map: texture });
       cubeMaterials.push(meshMaterial);
     }
@@ -509,7 +510,6 @@ var CubeData = function() {
   })();
 
   movementPolarity = {
-    //wtf does this do??
     1: true,
     3: false,
     4: true,
@@ -605,7 +605,6 @@ var CubeData = function() {
       15: { N: "S", S: "N", E: "W", W: "E", X: "X" }
     },
     13: {
-      //d
       14: { N: "W", S: "E", E: "N", W: "S", X: "X" },
       10: { N: "N", S: "S", E: "E", W: "W", X: "X" },
       4: { N: "W", S: "E", E: "N", W: "S", X: "X" },
@@ -698,7 +697,6 @@ var CubeData = function() {
       15: ["S", 5]
     },
     13: {
-      //d
       14: ["X", 13],
       10: ["E", 23],
       4: ["S", 17],

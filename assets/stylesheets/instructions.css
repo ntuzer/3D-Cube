@@ -1,0 +1,58 @@
+#instructions-icon {
+  color: #1e87f0;
+  margin-left: 5px;
+  height: 20px;
+  width: 20px;
+  font-weight: bold;
+}
+
+#instructions-icon:hover {
+  color: lightgray;
+}
+
+.instructions-ol {
+  width: 120px;
+  text-align: left;
+}
+
+.instructions-container {
+  position: absolute;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  top: 250px;
+  left: 0px;
+  display: block;
+  background-color: white;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  -webkit-box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+.sideHeader {
+  display: block;
+  position: absolute;
+  transform: rotate(90deg);
+  height: 40px;
+  width: 213px;
+  top: 337px;
+  left: -87px;
+  z-index: 10;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 40px;
+  letter-spacing: 1px;
+  vertical-align: middle;
+  text-align: center;
+  color: darkgray;
+  cursor: pointer;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 5px;
+  -webkit-box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+}

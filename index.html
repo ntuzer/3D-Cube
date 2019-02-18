@@ -16,23 +16,27 @@
 		<link href="https://fonts.googleapis.com/css?family=Roboto|Russo+One" rel="stylesheet">
 		<link rel="stylesheet" href="assets/stylesheets/reset.css">
 		<link rel="stylesheet" href="assets/stylesheets/styles.css">
+		<link rel="stylesheet" href="assets/stylesheets/sliderControls.css">
+		<link rel="stylesheet" href="assets/stylesheets/instructions.css">
 		<script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
 		<script type="text/javascript" src="assets/js/three/three.min.js"></script>
 		<script type="text/javascript" src="assets/js/three/examples/js/renderers/canvasRenderer.js"></script>
 		<script type="text/javascript" src="assets/js/three/examples/js/renderers/Projector.js"></script>
-		<script type="text/javascript" src="assets/js/cubeData.js"></script>
-		<script type="text/javascript" src="assets/js/rubiksCube.js"></script>
-		<script type="text/javascript" src="assets/js/controls.js"></script>
-		<script type="text/javascript" src="assets/js/start.js"></script>
+		<script type="text/javascript" src="assets/js/cubeData.min.js"></script>
+		<script type="text/javascript" src="assets/js/rubiksCube.min.js"></script>
+		<script type="text/javascript" src="assets/js/startControls.min.js"></script>
 	</head>
 	<body>
 		<div class="title">
 			<h1>3D - CUBE</h1>
 		</div>
+
 		<img src="assets/images/loading.gif" class="loading"/>
+
 		<main id='rubiksCube'>
 		</main>
-		<div class="slidecontainer">
+
+		<div class="controlsContainer">
 			<div class="slideHeader" onclick="toggleModal(event)">
 				Controls
 				<div class="headerCloseContainer">
@@ -41,7 +45,7 @@
 			</div>
 			<div id="slideControls" class="slideControlsOpen">
 			  <p>Cube Rotation Speed:</p>
-			  <input id="speedSlider"  type="range" min="1" max="20" value="5" onchange="RubiksCube.setRotationSpeed(event)">
+			  <input id="speedSlider"  type="range" min="5" max="30" value="15" onchange="RubiksCube.setRotationSpeed(event)">
 				<button id="scramble" onclick="RubiksCube.scramble(event)">
 					<label id="red">S</label>
 					<label id="green">c</label>
@@ -64,9 +68,25 @@
 			</div>
 		</div>
 
+		<div class="instructions-container" id="instructionsContainer">
+			<div class="slideHeader" id="instructionsHeader" onclick="toggleInstructions(event)" style="border-top-left-radius:0px;">
+				How To Play:
+			</div>
+			<div class="headerCloseContainer" style="left:7px;" onclick="toggleInstructions(event)">
+				<ion-icon id="instruction-icon" name="ios-close" class="close"></ion-icon>
+			</div>
+			<div id="instructions" class="slideControlsOpen" style="margin-left:0;">
+				<ol class="instructions-ol">
+					<li>Click and drag to spin the cube.</li>
+					<br/>
+					<li>Right-click on any face to rotate in that direction.</li>
+				</ol>
+			</div>
+		</div>
+
 		<div class="links">
 			<a href="https://rewel.io" target="_blank">
-				<ion-icon name="copy"></ion-icon>
+				<ion-icon name="briefcase"></ion-icon>
 			</a>
 			<a href="https://linkedin.com/in/rewelgarcia" target="_blank">
 				<ion-icon name="logo-linkedin"></ion-icon>
