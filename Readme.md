@@ -2,7 +2,7 @@
   3D - Cube
 </h1>
 <h4 align="center">
-  <a href="https://ntuzer.github.io/3D-Cube/"><img src="https://res.cloudinary.com/kapor8heroes/image/upload/v1549481441/test/cube_small.png" alt="RubiksCube" width="200"></a>
+  <a href="https://ntuzer.github.io/3D-Cube/"><img src="https://raw.githubusercontent.com/ntuzer/3D-Cube/master/assets/images/readme/cube_small.png" alt="RubiksCube" width="200"></a>
   <br>
   <br>
   <a href="https://ntuzer.github.io/3D-Cube/">Live Demo</a> | An online Rubiks Cube built in Three.JS.
